@@ -1,0 +1,1486 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+% Пакеты для работы с русским языком и кодировкой
+\usepackage[utf8]{inputenc} % Кодировка UTF-8
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel} % Русский язык
+\usepackage{amsmath, amssymb} % Для математических формул
+\usepackage{geometry} % Устанавливаем поля
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm}
+\usepackage[hidelinks]{hyperref} % Для гиперссылок
+\usepackage{graphicx} % Для вставки изображений
+\usepackage{listings} % Для красивого отображения кода
+\usepackage{listingsutf8} % Добавляет поддержку UTF-8 символов в окружении listings
+\usepackage{xcolor} % Для дополнительной настройки цветов
+\usepackage{tcolorbox}
+\usepackage{varwidth}
+
+\lstset{
+	backgroundcolor=\color{black!78!white},     % Чёрный фон
+	basicstyle=\ttfamily\color{white}, % Белый моноширинный шрифт
+	keywordstyle=\color{cyan},          % Цвет ключевых слов (голубой)
+	commentstyle=\color{gray},         % Цвет комментариев (серый)
+	stringstyle=\color{green!90!black},% Цвет строк (зелёный)
+	showstringspaces=false,            % Не показывать пробелы внутри строк
+	numbers=left,                      % Номера строк слева
+	numberstyle=\color{black},         % Стиль номеров строк (чёрный)
+	stepnumber=1,                      % Нумерация через одну строку
+	numbersep=5pt,                     % Расстояние между номерами строк и кодом
+	frame=single,                      % Рамка вокруг кода
+	rulecolor=\color{white},           % Цвет рамки
+	breaklines=true,                   % Перенос длинных строк
+	breakatwhitespace=true,            % Переносить строки только на пробелах
+	captionpos=b,                      % Заголовок рамки снизу
+	escapeinside={\%*}{*)},            % Использование LaTeX внутри кода
+	extendedchars=true,                % Поддержка расширенных символов
+	inputencoding=utf8                 % Кодировка входного текста
+}
+
+% Определение CSS
+\lstdefinelanguage{CSS}{
+	morekeywords={
+		@import, @media, @keyframes, @font-face, @page, 
+		border, margin, padding, display, position, color, background-color, width, height, 
+		left, right, top, bottom, font-size, font-family, font-weight, text-align, text-decoration,
+		transform, rotate, translateX, opacity
+	},
+	sensitive=true, % Учитывать регистр символов
+	morecomment=[l][\color{gray}]{/*}, % Комментарии в CSS
+	morestring=[b][\color{orange}]" % Строки в CSS
+}
+
+% Настройка tcolorbox для API
+\tcbuselibrary{listingsutf8} % Поддержка кода внутри tcolorbox
+\tcbset{colframe=gray!80, colback=gray!10, coltitle=black, fonttitle=\bfseries}
+
+% Стиль для GET-запросов
+\newtcolorbox[auto counter, number within=section]{getapi}[2][]{
+	colframe=blue!75,
+	colback=blue!5,
+	colbacktitle=blue!15,
+	fonttitle=\bfseries,
+	title=GET: #2,
+	listing only,
+	listing options={basicstyle=\ttfamily\footnotesize,breaklines=true},
+	#1
+}
+
+% Определяем стиль для POST-запросов
+\newtcolorbox[auto counter, number within=section]{postapi}[2][]{
+	title=POST: #2,
+	colframe=green!75,
+	colback=green!5,
+	colbacktitle=green!15,
+	fonttitle=\bfseries,
+	listing only,
+	listing options={basicstyle=\ttfamily\footnotesize,breaklines=true},
+	#1
+}
+
+% Определяем стиль для DELETE-запросов
+\newtcolorbox[auto counter, number within=section]{deleteapi}[2][]{
+	title=DELETE: #2,
+	colframe=red!75,
+	colback=red!5,
+	colbacktitle=red!15,
+	fonttitle=\bfseries,
+	listing only,
+	listing options={basicstyle=\ttfamily\footnotesize,breaklines=true},
+	#1
+}
+
+% Пример для PUT-запросов
+\newtcolorbox[auto counter, number within=section]{putapi}[2][]{
+	title=PUT: #2,
+	colframe=orange!75,
+	colback=orange!5,
+	colbacktitle=orange!15,
+	fonttitle=\bfseries,
+	listing only,
+	listing options={basicstyle=\ttfamily\footnotesize,breaklines=true},
+	#1
+}
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		
+		\includegraphics{FEFU-logo}\\
+		МИНИСТЕРСТВО НАУКИ И ВЫСШЕГО ОБРАЗОВАНИЯ\\РОССИЙСКОЙ ФЕДЕРАЦИИ\\
+		Федеральное государственное автономное образовательное учреждение высшего образования\\
+		\textbf{«Дальневосточный федеральный университет»}\\
+		\textbf{(ДВФУ)}
+		\vspace*{0.3cm}
+		\rule{\linewidth}{0.7mm}
+		\vspace*{0.3cm}
+		
+		\textbf{ИНСТИТУТ МАТЕМАТИКИ И КОМПЬЮТЕРНЫХ ТЕХНОЛОГИЙ}\\
+		\vspace*{0.3cm}
+		\textbf{Кафедра математического и компьютерного моделирования}\\
+		\vspace*{0.9cm}
+		
+		Кулахсзян Сергей Грайрович, Талмазан Анастасия Александровна\\
+		\textbf{ПРОЕКТ ПО WEB-ПРОГРАММИРОВАНИЮ}\\
+		\vspace*{0.3cm}
+		\textbf{КУРСОВОЙ ПРОЕКТ}\\
+		\vspace*{0.3cm}
+		
+		Направление подготовки 02.03.01сцт Сквозные цифровые технологии,\\ бакалавриатская программа «Математика и компьютерные науки»\\ Очной (заочной) формы обучения\\
+		\vspace{1cm}
+		
+		\raggedleft
+		\textbf{Студенты группы Б9123-02.03.01сцт}\\
+		\rule{4.5cm}{0.3mm} С. Г. Кулахсзян\\
+		\rule{4.55cm}{0.3mm} А. А. Талмазан\\
+		\vspace{1cm}
+		
+		\textbf{Руководитель проекта}\\
+		\rule{4.5cm}{0.3mm} И. С. Дроздова\\
+		
+		\vfill
+		\centering
+		Владивосток\\
+		2025
+	\end{titlepage}
+	
+	% Оглавление
+	\tableofcontents
+	\newpage
+	
+	% Введение
+	\section{Введение}
+	
+	Данный проект представляет собой веб-приложение "Магазин видеоигр", разработанное с использованием серверного фреймворка Django на языке программирования Python и клиентской библиотеки React на языке программирования JavaScript.
+	
+	Основная цель проекта — создание удобного онлайн-магазина, где пользователи могут просматривать, выбирать и приобретать видеоигры. 
+	
+	{Основные задачи проекта:
+	\begin{itemize}
+		\item Реализовать серверную часть на Django для обработки запросов, работы с базой данных и предоставления API;
+		\item Разработать клиентскую часть на React для создания удобного пользовательского интерфейса;
+		\item Настроить взаимодействие фронтенда и бэкенда через REST API;
+		\item Реализовать авторизацию, аутентификацию пользователя, а также возможность выхода из аккаунта и его удаление;
+		\item Получить обширную информацию о видеоиграх, странах и основных валютах, соответсвующие стране, и курсе валют для формирования базы данных и дальнейшего применения этой информации;
+		\item Добавить платёжную систему для совершения сделки купли-продажи поользователем продукта;
+		\item Добавить возможность создания заявлений пользователем;
+	\end{itemize}
+	
+	\newpage
+	
+	\section{Frontend}
+	\subsection{Математическое приложение}
+	\subsubsection{Конвертирование валюты}
+	
+	В базе данных цены на игры хранятся в центах, это позволяет избегать хранения информации в дробных числах, из-за чего расчёты будут более точными.
+	
+	У каждого пользователя цены на игры будут отображаться в той валюте, которая будет основной в стране, которую он выбрал при регистрации. Для корректного отображения необходимо конвертировать центы в корректную валюту. Это делается по формуле:\\
+	
+	\[
+	S_{\text{currency}} = S_{\text{USD}} \times K_{\text{currency}},
+	\]
+	\[
+	S_{\text{USD}} = \frac{S_{\text{cents}}}{100},
+	\]
+	
+	где $S_{\text{cents}}$ -- значение цены в центах, $S_{\text{USD}}$ -- значение в долларах, $K_{\text{currency}}$ -- соотношение курса избранной валюты к доллару, $S_{\text{currency}}$ -- значение цены в избранной валюте.\\
+	
+	\subsubsection{Расчёт возраста}
+	
+	У всех игр есть возрастной рейтинг, благодаря которому определяется минимальный возраст, допустимый для приобретения продукта, согласно законодательству. Для того, чтобы знать при каких случах стоит предотвращать доступ к пользователя к определённому товару, необходимо рассчитать возраст пользователя.
+	
+	Возраст рассчитывается в полных годах и зависит от текущей даты. Для этого используется следующая формула:
+	
+	\[
+	A = Y_{\text{today}} - Y_{\text{birth}},
+	\]
+	
+	где $Y_{\text{today}}$ -- текущий год, $Y_{\text{birth}}$ -- год рождения пользователя, $A$ -- возраст пользователя в полных годах.
+	
+	Однако необходимо учитывать, что если день и месяц текущей даты ещё не достигли дня и месяца рождения пользователя в текущем году, возраст должен быть уменьшен на единицу. Условие корректировки записывается следующим образом:
+	
+	\[
+	A = A - 1, \quad \text{если } (M_{\text{today}} < M_{\text{birth}}) \, \text{или} \, (M_{\text{today}} = M_{\text{birth}} \, \text{и} \, D_{\text{today}} < D_{\text{birth}}),
+	\]
+	
+	где $M_{\text{today}}$ -- текущий месяц, $M_{\text{birth}}$ -- месяц рождения пользователя, $D_{\text{today}}$ -- текущее число, $D_{\text{birth}}$ -- число рождения пользователя.\\
+	
+	\subsubsection{Анимация загрузки}
+	
+	Часто на сайте изображения долго грузятся, дабы не было никакого пустого пространиства на сайте, было принято решение добавить анимацию загрузки, которая представляет из себя движение 8 кругов по окружности друг за другом.
+	
+	Создан компонент, представляющий собой анимацию, в которой 8 кругов вращаются вокруг центра по окружности, начиная с разных позиций и плавно появляется. Рассмотрим работу этого компонента более детально.
+	
+	Для создания 8 элементов (кругов) используется следующий цикл:
+	
+	\[
+	Array.from({\ length: 8 }).map((\_, \text{index}) \Rightarrow \ldots)
+	\]
+	
+	Этот массив из 8 элементов проходит цикл, и для каждого индекса генерируется элемент типа \texttt{div} с уникальными стилями. Основная цель заключается в том, чтобы отобразить 8 кругов, которые будут расположены равномерно по окружности.
+	
+	Каждому кругу присваивается угловая трансформация, которая зависит от его индекса в массиве. Стиль для каждого круга выглядит так:
+	
+	\[
+	transform: rotate\left(\frac{360}{8} \times \text{index}\right)deg, \text{translateX}(150\%), \text{rotate}\left(-\frac{360}{8} \times \text{index}\right)deg
+	\]
+	
+	Где:
+	\begin{itemize}
+		\item $rotate\left(\frac{360}{8} \times \text{index}\right)$ — этот угол позволяет расположить каждый круг на равном расстоянии друг от друга по окружности (360 градусов делятся на 8 частей).
+		\item $\text{translateX}(150\%)$ — этот параметр сдвигает круг от его исходной позиции на 150\% от его радиуса, таким образом круги будут располагаться по внешней окружности.
+		\item $rotate\left(-\frac{360}{8} \times \text{index}\right)$ — поворачивает каждый круг на противоположный угол, чтобы сохранить правильную ориентацию элементов.
+	\end{itemize}
+	
+	Таким образом, каждый круг будет располагаться на окружности, и их движение будет синхронизировано.
+	
+	Для анимации вращения каждого круга используется следующий CSS-код:	
+
+	\begin{lstlisting}[language=CSS]
+@keyframes orbit {
+    0% {
+        transform: rotate(0deg) translateX(150%) rotate(0deg);
+    }
+    100% {
+    transform: rotate(360deg) translateX(150%) rotate(-360deg);
+    }
+}
+	\end{lstlisting}
+	
+	В начале анимации (\texttt{0\%}) каждый круг находится в своей начальной позиции. В конце анимации (\texttt{100\%}) круг проходит полный оборот (360 градусов) вокруг центра и возвращается на своё начальное место.
+	
+	Для плавного появления каждого круга используется анимация изменения прозрачности:
+	
+	\begin{lstlisting}[language=CSS]
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+	\end{lstlisting}
+	
+	Каждому кругу присваивается задержка анимации, которая зависит от его индекса:
+	
+	\begin{lstlisting}[language=CSS]
+animation: orbit 1.5s linear infinite, fade-in 0.19s {index} * 0.19s forwards;
+    \end{lstlisting}
+	
+	Анимация вращения (\texttt{orbit}) длится 1.5 секунды и выполняется бесконечно. Анимация появления (\texttt{fade-in}) имеет задержку, которая зависит от индекса элемента, создавая эффект последовательного появления элементов.
+	
+	\subsection{Хранение пользовательских данных}
+	Полсле регистрации или авторизации для корректной работы сервиса необходимо в каком-то виде хранить информацию о пользователе. Для этого я применяю токены.
+	
+	\subsubsection{Определение}
+	JSON Web Token (JWT) представляет собой компактный и безопасный способ передачи данных между сторонами в виде JSON-объекта. Он широко используется для аутентификации и авторизации в веб-приложениях.
+	
+	\subsubsection{Структура JWT}
+	JWT состоит из трёх частей, разделённых точками:
+	\begin{itemize}
+		\item \textbf{Header (заголовок)}
+		\item \textbf{Payload (полезная нагрузка)}
+		\item \textbf{Signature (подпись)}
+	\end{itemize}
+	Пример структуры JWT:\\
+	\texttt{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3OD\\
+	kwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl19.S\\
+	flKxwRJSMeKKF2QT4fwpMeJf36POk6yJV\_adQssw5c}\\
+	Каждая часть кодируется в формате Base64 URL:
+	\begin{itemize}
+		\item \textbf{Header}: содержит информацию о типе токена (\texttt{JWT}) и алгоритме подписи (например, \texttt{HS256}).
+		\item \textbf{Payload}: включает данные о пользователе и дополнительные мета-данные (например, роли, ID пользователя, срок действия токена).
+		\item \textbf{Signature}: создаётся с использованием алгоритма подписи и секретного ключа для проверки подлинности токена.
+	\end{itemize}
+	\newpage
+
+	\section{Backend}
+	\subsection{Структура базы данных}
+	\includegraphics[width=\textwidth]{database-schema}
+	
+	\subsection{Подключенные инструменты}
+	\subsubsection{Simple JWT}
+	Для аутентификации пользователей нак Django мне необходим инструмент для работы с токенами. Одним из популярных инструментов для этого является пакет django-rest-framework-simple-jwt, который реализует аутентификацию с использованием JSON Web Token (JWT). Simple JWT предоставляет эндпоинты для получения и обновления токенов.
+	
+	В данном проекте Simple JWT имеет следующие настройки:
+	
+	\begin{lstlisting}[language=Python]
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+    
+    'ALGORITHM': 'HS256',
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    'JWK_URL': None,
+    'LEEWAY': 0,
+    
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_
+user_authentication_rule',
+    
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser',
+    'JTI_CLAIM': 'jti',
+    
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+	\end{lstlisting}
+	
+	\begin{itemize}
+		\item \textbf{Жизненный цикл токенов:}
+		\begin{itemize}
+			\item \textbf{ACCESS\_TOKEN\_LIFETIME} -- время жизни access-токена 5 минут;
+			\item \textbf{REFRESH\_TOKEN\_LIFETIME} -- время жизни refresh-токена 50 дней;
+			\item \textbf{ROTATE\_REFRESH\_TOKENS} -- при обновлении access-токена создаётся новый refresh-токен;
+			\item \textbf{BLACKLIST\_AFTER\_ROTATION} -- старые refresh-токены попадают в чёрный список после обновления, это сделано для большей безопасности;
+			\item \textbf{SLIDING\_TOKEN\_LIFETIME} -- время жизни sliding-токена 5 минут;
+			\item \textbf{SLIDING\_TOKEN\_REFRESH\_LIFETIME} -- время жизни sliding refresh-токена 1 день.
+		\end{itemize}
+		
+		\item \textbf{Криптографические параметры:}
+		\begin{itemize}
+			\item \textbf{ALGORITHM} -- алгоритм шифрования токена (HMAC с SHA-256). HMAC с SHA-256 -- это алгоритм для создания криптографических подписей. Он берёт данные токена, добавляет к нему секретный ключ, применяет хэш-функцию SHA-256, в итоге на выходе получается HMAC (Hash-based Message Authentication Code) — цифровая подпись, защищающая данные от подделки;
+			\item \textbf{VERIFYING\_KEY} -- ключ для верификации токена;
+			\item \textbf{JWK\_URL} -- URL для загрузки JSON Web Key.
+		\end{itemize}
+		
+		\item \textbf{Аутентификация и авторизация:}
+		\begin{itemize}
+			\item \textbf{AUTH\_HEADER\_TYPES} -- тип заголовка авторизации;
+			\item \textbf{AUTH\_HEADER\_NAME} -- имя заголовка с токеном;
+			\item \textbf{USER\_ID\_FIELD} -- поле, идентифицирующее пользователя;
+			\item \textbf{USER\_ID\_CLAIM} -- claim (ключ в payload токена), в котором передаётся user\_id;
+			\item \textbf{USER\_AUTHENTICATION\_RULE} -- правило аутентификации пользователей;
+			\item \textbf{TOKEN\_TYPE\_CLAIM} -- claim, указывающий тип токена;
+			\item \textbf{TOKEN\_USER\_CLASS} -- класс пользователя, связанного с токеном;
+			\item \textbf{JTI\_CLAIM} -- уникальный идентификатор токена (используется для blacklist).
+		\end{itemize}
+		
+		\item \textbf{Дополнительные параметры:}
+		\begin{itemize}
+			\item \textbf{UPDATE\_LAST\_LOGIN} -- не обновлять поле last\_login при использовании токена;
+			\item \textbf{LEEWAY} -- дополнительное время для валидации токена (учитывает возможную разницу времени между серверами).
+		\end{itemize}
+	\end{itemize}
+	
+	\subsubsection{Simple Mail Transfer Protocol}
+	SMTP (Simple Mail Transfer Protocol) — это протокол для отправки электронной почты. Данный протокол применяется в проекте для отправки электронных писем пользователям о коде подтвеждения или для почтовой рассылки.
+	
+	В качестве почтового хоста в проекте применяется smtp.gmail.com, также для данного проекта была создана специальная электронная почта gamestore.django.app@gmail.com, от которого совершаются в отправки писем.
+	
+	\subsubsection{Celery}
+	Celery — это асинхронный менеджер задач для Python. Он позволяет выполнять фоновые задачи (например, обработку данных, отправку email) без блокировки основного приложения. Для работы с Django применяется пакет django-celery-beat. Он создаёт новые таблицы в базе данных для создания с разными временными периодами выполнения.
+	
+	Celery необходим брокер для хранении информации о задаче, в проекте в роли брокера используется Reddis. Для работы celery необходимо запустить 2 модуля: beat и worker. Celery beat просматривает информацию в специальной таблице базы данных для поиска задач, которые необходимо выполнить, после нахождения задачи, он передаёт в Reddis эту задачу. Celery worker в свою очередь выполняет все задачи, которые были переданы в Reddis.
+	
+	Всего в проекте 2 задачи. Первая -- send\_subscription\_emails. Эта задача имеет периодичность выполнения раз в день. Она находит всех пользователей, которые имеют статус "подписан", после чего отправляет всем найденным пользователям почтовую россылку. Вторая -- delete\_old\_users. Данная задача каждый день ищет пользователей со статусом "удалённый" и проверяет дату приобретения этого статуса, пользователь получил статус "удалённый" более 30 дней назад, то информация о пользователе стирается из базы данных.
+	
+	\subsubsection{Stripe API}
+	Stripe API -- это мощный API для работы с платежами, подписками и финансами в веб-приложениях. В проекте он применяется, как со стороны фронтэнда, так и бекэнда. 
+	
+	В клиентской части создаются специальные компоненты для ввода данных о банковской карте пользователя. После эти данные специальным образом конвертируются для безопасности сохранности данных.
+	
+	Таким образом, в серверную часть уже передаются данные не самой карты, а некоторая информация, которую Stripe расшифровывает для последующей работы с ним. После совершается транзакция, а приобретённый продукт передаётся пользователю.
+	
+	\subsection{Роуты для обращения к API}
+	Серверная часть сайта разделён на 6 приложений, каждая из которых выполняет свою задачу: currency, feedback, games, library, payments, users.
+	
+	\subsubsection{currency}
+	\begin{getapi}{/currency/currency\_rates/}
+		\textbf{Описание:} Возвращает все объекты модели CurrencyRate.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "currency_code": "USD",
+        "rate": "1.000000",
+        "updated_at": "2024-12-02T12:55:54.013000Z"
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/currency/currency\_rates/get/\{currency\_code\}/}
+		\textbf{Описание:} Возвращает определённый объект модели CurrencyRate в соответсвии с currency\_code.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+	"currency_code": "USD",
+	"rate": "1.000000",
+	"updated_at": "2024-12-02T12:55:54.013000Z"
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/currency/country/}
+		\textbf{Описание:} Возвращает все объекты модели Country.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+	    "numeric_code": 520,
+	    "name_ru": "Haypy",
+	    "currency_symbol": "$",
+	    "currency": "AUD"
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/currency/country/get/\{numeric\_code\}/}
+		\textbf{Описание:} Возвращает определённый объект модели Country в соответсвии с numeric\_code.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+	"numeric_code": 520,
+	"name_ru": "Haypy",
+	"currency_symbol": "$",
+	"currency": "AUD"
+}
+		\end{lstlisting}
+	\end{getapi}
+
+	\subsubsection{feedback}	
+	\begin{getapi}{/feedback/feedback/}
+		\textbf{Описание:} Возвращает все объекты модели Feedback, доступно только администраторам.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 29,
+        "theme": "Some theme",
+        "text": "Some text",
+        "file": "http://127.0.0.1:8000/static/files/file.
+file",
+        "status": "Some status",
+        "created_at": "2025-01-26T10:52:30.333019Z",
+        "updated_at": "2025-01-26T16:04:07.857400Z",
+        "user": 1,
+        "comment": "Some comment"
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/feedback/feedback/get/\{user\_id\}/}
+		\textbf{Описание:} Возвращает все объекты модели Feedback отправленные определённым пользователем в соответсвии с указанным ID пользователя user\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 29,
+        "theme": "Some theme",
+        "text": "Some text",
+        "file": "http://127.0.0.1:8000/static/files/file.
+file",
+        "status": "Some status",
+        "created_at": "2025-01-26T10:52:30.333019Z",
+        "updated_at": "2025-01-26T16:04:07.857400Z",
+        "user": 1,
+        "comment": "Some comment"
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/feedback/feedback/get\_by\_id/\{feedback\_id\}/}
+		\textbf{Описание:} Возвращает определённый объект модели Feedback в соответсвии с feedback\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "id": 29,
+    "theme": "Some theme",
+    "text": "Some text",
+    "file": "http://127.0.0.1:8000/static/files/file.file",
+    "status": "Some status",
+    "created_at": "2025-01-26T10:52:30.333019Z",
+    "updated_at": "2025-01-26T16:04:07.857400Z",
+    "user": 1,
+    "comment": "Some comment"
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{postapi}{/feedback/create/\{user\_id\}/}
+		\textbf{Описание:} Создаёт новый объект модели Feedback от пользователя в соответсвии с user\_id.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "theme": "Some theme",
+    "text": "Some text",
+    "file": "file.file"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "message": "Feedback created"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Some error"
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\begin{putapi}{/feedback/feedback/update/\{feedback\_id\}/}
+		\textbf{Описание:} Обновляет данные объекта модели Feedback в соответствии с feedback\_id.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "theme": "Some theme",
+    "text": "Some text",
+    "file": "file.file"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "message": "Feedback updated"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Some error"
+}
+		\end{lstlisting}
+	\end{putapi}
+	
+	\begin{deleteapi}{/feedback/feedback/delete/\{feedback\_id\}/}
+		\textbf{Описание:} Удаляет данные объекта модели Feedback в соответствии с feedback\_id.\medskip
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "message": "Feedback deleted"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за статуса, не равному "Отправлено":}
+		\begin{lstlisting}[language=Python]
+{
+    "message": "Feedback can't be deleted"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае других причин провала:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Some error"
+}
+		\end{lstlisting}
+	\end{deleteapi}
+	
+	\subsubsection{games}
+	\begin{getapi}{/games/platform/}
+		\textbf{Описание:} Возвращает все объекты модели Platform.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 4,
+        "name": "Windows",
+        "icon": "http://127.0.0.1:8000/static/icons/windo
+ws-icon.png"
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/platform/get/\{platform\_id\}/}
+		\textbf{Описание:} Возвращает определённый объект модели Platform в соответствии с platform\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "id": 4,
+    "name": "Windows",
+    "icon": "http://127.0.0.1:8000/static/icons/windows-i
+con.png"
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/esrb\_rating/}
+		\textbf{Описание:} Возвращает все объекты модели ESRBRating.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 1,
+        "name_en": "Everyone 10 and older",
+        "name_ru": "C 10 let",
+        "image": "http://127.0.0.1:8000/static/icons/ESRB-
+Everyone-10.png",
+        "minimum_age": 10
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/esrb\_rating/get/\{esrb\_rating\_id\}/}
+		\textbf{Описание:} Возвращает определённый объект модели ESRBRating в соответствии с esrb\_rating\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "id": 1,
+    "name_en": "Everyone 10 and older",
+    "name_ru": "C 10 let",
+    "image": "http://127.0.0.1:8000/static/icons/ESRB-Every
+one-10.png",
+    "minimum_age": 10
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/genre/}
+		\textbf{Описание:} Возвращает все объекты модели Genre.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 1,
+        "name": "Racing"
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/genre/get/\{genre\_id\}/}
+		\textbf{Описание:} Возвращает определённый объект модели Genre в соответствии с genre\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "id": 1,
+    "name": "Racing"
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/tag/}
+		\textbf{Описание:} Возвращает все объекты модели Tag.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 1,
+        "name": "Survival"
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/tag/get/\{tag\_id\}/}
+		\textbf{Описание:} Возвращает определённый объект модели Tag в соответствии с tag\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "id": 1,
+    "name": "Survival"
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/developer/}
+		\textbf{Описание:} Возвращает все объекты модели Developer.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 10,
+        "name": "Rockstar Games"
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/developer/get/\{developer\_id\}/}
+		\textbf{Описание:} Возвращает определённый объект модели Developer в соответствии с developer\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "id": 10,
+    "name": "Rockstar Games"
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/screenshot/}
+		\textbf{Описание:} Возвращает все объекты модели Screenshot.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 1827221,
+        "image": "https://media.rawg.io/media/screenshots/
+a7c/a7c43871a54bed6573a6a429451564ef.jpg"
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/screenshot/get/\{screenshot\_id\}/}
+		\textbf{Описание:} Возвращает определённый объект модели Screenshot в соответствии с screenshot\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "id": 1827221,
+    "image": "https://media.rawg.io/media/screenshots/a7c/
+a7c43871a54bed6573a6a429451564ef.jpg"
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{\texttt{/games/game/?page=\{page\_number\}}}
+		\textbf{Описание:} Возвращает все объекты модели Game с пагинацией на странице page\_number, на каждой странице 39 объектов.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "total_count": 9999,
+    "total_pages": 257,
+    "page": 2,
+    "next": "http://127.0.0.1:8000/games/game/?page=3",
+    "previous": "http://127.0.0.1:8000/games/game/",
+    "results": [
+    {
+    	"id": 19710,
+    	"name": "Half-Life 2: Episode One",
+    	"background_image": "https://media.rawg.io/media/games/7a2/7a
+2500ee8b2c0e1ff268bb4479463dea.jpg",
+    	"description": "<p>Description...</p>",
+    	"esrb_rating": 6,
+    	"release_date": "2006-06-01",
+    	"price_in_cents": 0,
+    	"platforms": [4, 5, 6],
+    	"genres": [2, 4],
+    	"tags": [8, 13, 30, 31, 32, 42, 62, 63, 110, 111, 118, 119, 172, 193, 232, 319, 11669, 40833, 40834, 40839, 40845, 40847, 40849],
+    	"screenshots": [185831, 185832, 185833, 185834, 185835],
+    	"developers": [1612, 23342]
+    },
+    ...
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{\texttt{/games/games/get/\{user\_id\}/?page=\{page\_number\}}}
+		\textbf{Описание:} Возвращает определённый объект модели Game, которые отсутствуют в библиотеке у пользователя с ID user\_id, с пагинацией на странице page\_number, на каждой странице 39 объектов.\medskip
+		
+		\textbf{Необязательный параметры:}
+		\begin{itemize}
+			\item \texttt{[\&platforms=\{platform\_id1\}[\&platforms=\{platform\_id2\}[...]]]} -- параметры для фильтрации игр по платформам, возвращает только те игры, где в качесте платформы указан хотя бы один из перечисленных \texttt{platform\_id1[, platform\_id2[, ...]]};
+			\item \texttt{[\&genres=\{genre\_id1\}[\&genres=\{genre\_id2\}[...]]]} -- параметры для фильтрации игр по жанрам, возвращает только те игры, где в качесте жанра указан хотя бы один из перечисленных \texttt{genre\_id1[, genre\_id2[, ...]]};
+			\item \texttt{[\&tags=\{tag\_id1\}[\&tags=\{tag\_id2\}[...]]]} -- параметры для фильтрации игр по тэгам, возвращает только те игры, где в качесте тэга указан хотя бы один из перечисленных \texttt{tag\_id1[, tag\_id2[, ...]]};
+			\item \texttt{[\&developers=\{developer\_id1\}[\&developers=\{developer\_id2\} [...]]]} -- параметры для фильтрации игр по разработчикам, возвращает только те игры, где в качесте разработчиков указан хотя бы один из перечисленных \texttt{developer\_id1[, developer\_id2[, ...]]};
+			\item \texttt{\&name=\{game\_title\}} -- параметр для фильтрации игр по названию, возвращает только те игры, где название включает в себя game\_title.
+		\end{itemize}
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "total_count": 9999,
+    "total_pages": 257,
+    "page": 2,
+    "next": "http://127.0.0.1:8000/games/game/?page=3",
+    "previous": "http://127.0.0.1:8000/games/game/",
+    "results": [
+    {...
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{\texttt{/games/games/get/\{user\_id\}/?page=\{page\_number\}}}
+		\textbf{Продолжение...}
+		\begin{lstlisting}[language=Python]
+...
+    {
+        "id": 19710,
+        "name": "Half-Life 2: Episode One",
+        "background_image": "https://media.rawg.io/media/games/7a2/7a
+2500ee8b2c0e1ff268bb4479463dea.jpg",
+        "description": "<p>Description...</p>",
+        "esrb_rating": 6,
+        "release_date": "2006-06-01",
+        "price_in_cents": 0,
+        "platforms": [4, 5, 6],
+        "genres": [2, 4],
+        "tags": [8, 13, 30, 31, 32, 42, 62, 63, 110, 111, 118, 119, 172, 193, 232, 319, 11669, 40833, 40834, 40839, 40845, 40847, 40849],
+        "screenshots": [185831, 185832, 185833, 185834, 185835],
+        "developers": [1612, 23342]
+    },
+    ...
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/game/get/\{game\_id\}}
+		\textbf{Описание:} Возвращает определённый объект модели Game в соответствии с game\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+{
+    "id": 19710,
+    "name": "Half-Life 2: Episode One",
+    "background_image": "https://media.rawg.io/media/games/7a2/7a2500
+ee8b2c0e1ff268bb4479463dea.jpg",
+    "description": "<p>Description...</p>",
+    "esrb_rating": 6,
+    "release_date": "2006-06-01",
+    "price_in_cents": 0,
+    "platforms": [4, 5, 6],
+    "genres": [2, 4],
+    "tags": [8, 13, 30, 31, 32, 42, 62, 63, 110, 111, 118, 119, 172, 193, 232, 319, 11669, 40833, 40834, 40839, 40845, 40847, 40849],
+    "screenshots": [185831, 185832, 185833, 185834, 185835],
+    "developers": [1612, 23342]
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/random\_games/\{user\_id\}}
+		\textbf{Описание:} Возвращает 6 случайных объекта модели Game, которые отстутствуют в библиотеке пользователся с ID user\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 19710,
+        "name": "Half-Life 2: Episode One",
+        "background_image": "https://media.rawg.io/media/games/7a2/7a
+2500ee8b2c0e1ff268bb4479463dea.jpg",
+        "description": "<p>Description...</p>",
+        "esrb_rating": 6,
+        "release_date": "2006-06-01",
+        "price_in_cents": 0,
+        "platforms": [4, 5, 6],
+        "genres": [2, 4],
+        "tags": [8, 13, 30, 31, 32, 42, 62, 63, 110, 111, 118, 119, 172, 193, 232, 319, 11669, 40833, 40834, 40839, 40845, 40847, 40849],
+        "screenshots": [185831, 185832, 185833, 185834, 185835],
+        "developers": [1612, 23342]
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/check\_game\_in\_library/\{user\_id\}/\{game\_id\}}
+		\textbf{Описание:} Возвращает true или false в зависимости от того, есть ли у пользователя с ID user\_id в библиотеке игра с ID game\_id.\medskip
+		
+		\textbf{Тело ответа в случае, если есть:}
+		\begin{lstlisting}[language=Python]
+{
+    "in_library": true
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае, если нет:}
+		\begin{lstlisting}[language=Python]
+{
+    "in_library": false
+}
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/requirement/}
+		\textbf{Описание:} Возвращает все объекты модели Requirement.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 1,
+        "minimum": "Minimum:OS: Windows 10 64 Bit, Windows 8.1 64 Bit, Windows 8 64...",
+        "recommended": "Recommended:OS: Windows 10 64 Bit, Windows 8.1 64 Bit, Windows...",
+        "platform": 4,
+        "game": 3498
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/games/requirement/get/\{game\_id\}/}
+		\textbf{Описание:} Возвращает все объекты модели Requirement игры с ID game\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "id": 1,
+        "minimum": "Minimum:OS: Windows 10 64 Bit, Windows 8.1 64 Bit, Windows 8 64...",
+        "recommended": "Recommended:OS: Windows 10 64 Bit, Windows 8.1 64 Bit, Windows...",
+        "platform": 4,
+        "game": 3498
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\subsubsection{library}
+	\begin{getapi}{/library/library/}
+		\textbf{Описание:} Возвращает все объекты модели Library.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "user": 1,
+        "game": 50677
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{getapi}{/library/library/get/\{user\_id\}/}
+		\textbf{Описание:} Возвращает все объекты модели Library пользователя с ID user\_id.\medskip
+		
+		\textbf{Тело ответа:}
+		\begin{lstlisting}[language=Python]
+[
+    {
+        "user": 1,
+        "game": 50677
+    },
+    ...
+]
+		\end{lstlisting}
+	\end{getapi}
+	
+	\begin{postapi}{/library/library/add/\{user\_id\}/\{game\_id\}/}
+		\textbf{Описание:} Создаёт новый объект модели Library с игрой ID game\_id для пользователя с ID user\_id.\medskip
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "message": "Game added to library"
+}
+\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за наличия игры у пользователя:}
+		\begin{lstlisting}[language=Python]
+{
+    "error": "This game is already in the library"
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\subsubsection{payments}
+	\begin{postapi}{/payments/save\_stripe\_info/}
+		\textbf{Оприсание:} Совершает запрос в приложение stripe для совершения транзакции.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "email": "some_email@mail.com",
+    "payment_method_id": 999,
+    "price": 999
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае, если пользователь с указанной электронной почтной впервые совершает транзакцию:}
+		\begin{lstlisting}[language=Python]
+{
+    "message": "Success", 
+    "data": {
+        "customer_id": 999, 
+        "extra_msg": ""
+    }
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае, если пользователь с указанной электронной почтной уже совершал транзакцию:}
+		\begin{lstlisting}[language=Python]
+{
+    "message": "Success", 
+    "data": {
+        "customer_id": 999, 
+        "extra_msg": "Customer already existed."
+    }
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\subsubsection{users}
+	\begin{postapi}{/users/token/}
+		\textbf{Описание:} Возвращает JSON Web Token с информацией о зарегистрированном пользователе.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "email": "examole@mail.com"
+    "password": "example_password"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в слуачае провала из-за неправильной почты или неправильного пароля:}
+		\begin{lstlisting}[language=Python]
+{
+    "detail": "No active account found with the given credentials"
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\begin{postapi}{/users/token/refresh/}
+		\textbf{Описание:} Обновляет JSON Web Token пользователя, это необходимо из-за ограниченного срока действия токена.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за некорректного refresh токена:}
+		\begin{lstlisting}[language=Python]
+{
+    "detail": "Token is invalid or expired",
+    "code": "token_not_valid"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за заблокированного refresh токена:}
+		\begin{lstlisting}[language=Python]
+{
+    "detail": "Token is blacklisted",
+    "code": "token_not_valid"
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\begin{postapi}{/users/register/}
+		\textbf{Описание:} Создаёт новые объекты User и соответствующий Profile.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "username": "user",
+    "email": "exaple@mail.com",
+    "password": "example_password",
+    "password2": "example_password",
+    "first_name": "Name",
+    "last_name": "Surname",
+    "birthdate": 30.12.2000,
+    "country": 643
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "username": "user",
+    "email": "exaple@mail.com"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за занятых электронной почты и/или имени пользователя:}
+		\begin{lstlisting}[language=Python]
+{
+    "username": [
+        "user with this username already exists."
+    ],
+    "email": [
+        "user with this email already exists."
+    ]
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за пустого значения одного из полей:}
+		\begin{lstlisting}[language=Python]
+{
+    "username": [
+        "This field may not be blank."
+    ],
+    ...
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\begin{postapi}{/users/check\_password/\{user\_id\}/}
+		\textbf{Описание:} Проверяет правильность пароля, соответсвующий пользователю с ID user\_id.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "password": "example_password"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Password is valid"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за невалидного пароля:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Password is invalid"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за отсутсвия пользователя с ID user\_id:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "User not found"
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\begin{postapi}{/users/check\_email/}
+		\textbf{Описание:} Проверяет, что переданная электронная почта не занята другим пользователем.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "email": "example@mail.com"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Email does not exist"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за существования пользователя с данной электронной почтой:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Email already exists"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за существования пользователя с данной электронной почтой, имеющий статус "удалённый":}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "User is deleted"
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\begin{postapi}{/users/check\_username/}
+		\textbf{Описание:} Проверяет, что переданное имя пользователя не занята другим пользователем.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "username": "username"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Username does not exist"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за существования пользователя с данным именем:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Username already exists"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за существования пользователя с данным именем, имеющий статус "удалённый":}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "User is deleted"
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\begin{putapi}{/users/update/\{user\_id\}/}
+		\textbf{Описание:} Обновляет данные пользователя, кроме электронной почты и пароля.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "username": "username",
+    "password": "password",
+    "first_name": "Name",
+    "last_name": "Surname",
+    "birthdate": 30.12.2000,
+    "country": 643,
+    "image": "file.file"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Data updated"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за неверного пароля:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Invalid password"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за существования иного пользователя с указанным именем:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "User with this username already exists"
+}
+		\end{lstlisting}
+	\end{putapi}
+	
+	\begin{putapi}{/users/subscribe/\{user\_id\}/}
+		\textbf{Описание:} Изменяет статус подписки пользователя с ID user\_id на противоположный.\medskip
+		
+		\textbf{Тело ответа в случае подписки:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "User subscribed true"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае отписки:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "User subscribed false"
+}
+		\end{lstlisting}
+	\end{putapi}
+	
+	\begin{deleteapi}{/users/delete/\{user\_id\}/}
+		\textbf{Описание:} Делает статус пользователя с ID user\_id удалённым.\medskip
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "detail": "User deleted"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за отсутсвия пользователя с указанным user\_id:}
+		\begin{lstlisting}[language=Python]
+{
+    "detail": "User not found."
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за запроса от иного пользователя:}
+		\begin{lstlisting}[language=Python]
+{
+    "detail": "You can't delete stranger account."
+}
+		\end{lstlisting}
+	\end{deleteapi}
+	
+	\begin{putapi}{/users/recover/}
+		\textbf{Описание:} Убирает статус "удалённый" у пользователя.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "recover": "email or username"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "User recovered"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за отсутствия пользователя с таким данным:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "User not found"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за иних причин:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "error: Some error"
+}
+		\end{lstlisting}
+	\end{putapi}
+	
+	\begin{postapi}{/users/create\_confirmation\_code/}
+		\textbf{Описание:} Создаёт или обновляет объект модели ConfirmationCode, соответствующий указанной электронной почте, и отправляет эллектронное письмо на эту почту с кодом подтверждения.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "email": "example@mail.com"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Reset password code sent"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "error: Some error"
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\begin{postapi}{/users/check\_confirmation\_code/}
+		\textbf{Описание:} Проверяет код подтверждения, соответствующий электронной почте.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "email": "example@mail.com",
+    "code": "1234"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Confirmation code is valid"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за невалидного кода:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Confirmation code is invalid"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за отсутствия кода подтверждения для указанной электронной почты:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Confirmation code not found"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала из-за иних причин:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "error: Some error"
+}
+		\end{lstlisting}
+	\end{postapi}
+	
+	\begin{putapi}{/users/reset\_password/}
+		\textbf{Описание:} Обновляет пароль пользователя.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "email": "exaple@mail.com",
+    "password": "new_password"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае усаеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Password changed"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае провала:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "error: Some error"
+}
+		\end{lstlisting}
+	\end{putapi}
+	
+	\begin{putapi}{/users/change\_email/\{user\_id\}/}
+		\textbf{Описание:} Обновляет электронную почту пользователя в соответсвии с user\_id.\medskip
+		
+		\textbf{Тело запроса:}
+		\begin{lstlisting}[language=Python]
+{
+    "email": "example@mail.com"
+}
+		\end{lstlisting}
+		
+		\textbf{Тело ответа в случае успеха:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": "Email changed"
+}
+		\end{lstlisting}
+		
+		\textbf{тело ответа в случае провала:}
+		\begin{lstlisting}[language=Python]
+{
+    "details": f"error: Some error"
+}
+		\end{lstlisting}
+	\end{putapi}
+\end{document}
