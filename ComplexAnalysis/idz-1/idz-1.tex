@@ -1,0 +1,523 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\onehalfspacing
+
+\newcommand{\circledequals}{\mathbin{\tikz \node[draw,circle,inner sep=1pt] {$=$};}}
+
+\DeclareMathOperator{\osmall}{o}
+\DeclareMathOperator{\Ln}{Ln}
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Imag}{Im}
+\DeclareMathOperator{\Real}{Re}
+
+\begin{document}
+	% Титульный лист
+	\begin{titlepage}
+		\centering
+		
+		\includegraphics{FEFU-logo}\\
+		МИНИСТЕРСТВО НАУКИ И ВЫСШЕГО ОБРАЗОВАНИЯ\\РОССИЙСКОЙ ФЕДЕРАЦИИ\\
+		Федеральное государственное автономное образовательное учреждение высшего образования\\
+		\textbf{«Дальневосточный федеральный университет»}\\
+		\textbf{(ДВФУ)}
+		\vspace*{0.3cm}
+		\rule{\linewidth}{0.7mm}
+		\vspace*{0.3cm}
+		
+		\textbf{ИНСТИТУТ МАТЕМАТИКИ И КОМПЬЮТЕРНЫХ ТЕХНОЛОГИЙ}\\
+		\vspace*{0.3cm}
+		\textbf{Кафедра математического и компьютерного моделирования}\\
+		\vspace*{0.9cm}
+		
+		Кулахсзян Сергей Грайрович\\
+		\textbf{ИНДИВИДУАЛЬНОЕ ДОМАШНЕЕ ЗАДАНИЕ №1 ПО ТЕОРИИ ФУНКЦИЙ КОМПЛЕКСНОГО ПЕРЕМЕННОГО}\\
+		\vspace*{0.3cm}
+		
+		Направление подготовки 02.03.01сцт Сквозные цифровые технологии,\\ бакалавриатская программа «Математика и компьютерные науки»\\ Очной (заочной) формы обучения\\
+		\vspace{1cm}
+		
+		\raggedleft
+		\textbf{Студент группы Б9123-02.03.01сцт2}\\
+		\rule{4.5cm}{0.3mm} С. Г. Кулахсзян\\
+		\vspace{1cm}
+		
+		\textbf{Руководитель проекта}\\
+		\rule{4.2cm}{0.3mm} Ю. А. Клевчихин\\
+		
+		\vfill
+		\centering
+		Владивосток\\
+		2025
+	\end{titlepage}
+	
+	% Оглавление
+	\tableofcontents
+	\newpage
+	
+	\section{Найти все значения корня:}
+	
+	$
+	\displaystyle\sqrt[3]{\frac{i}{27}} = \sqrt[3]{z} = w\\
+	|z| = \sqrt{\left(\frac{1}{27}\right)^{2}} = \frac{1}{27}\\
+	\phi = \frac{\pi}{2}\\
+	z = \frac{1}{3}\left(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}\right)\\
+	\\
+	k_{0} = \frac{1}{3}\left(\cos\frac{\frac{\pi}{2}}{3} + i\sin\frac{\frac{\pi}{2}}{3}\right) = \frac{1}{3}\left(\cos\frac{\pi}{6} + i\sin\frac{\pi}{6}\right) = \frac{\sqrt{3}}{6} + i\frac{1}{6}\\
+	\\
+	k_{1} = \frac{1}{3}\left(\cos\frac{\frac{\pi}{2} + 2\pi}{3} + i\sin\frac{\frac{\pi}{2} + 2\pi}{3}\right) = \frac{1}{3}\left(\cos\frac{5\pi}{6} + i\sin\frac{5\pi}{6}\right) = -\frac{\sqrt{3}}{6} + i\frac{1}{6}\\
+	\\
+	k_{2} = \frac{1}{3}\left(\cos\frac{\frac{\pi}{2} + 4\pi}{3} + i\sin\frac{\frac{\pi}{2} + 4\pi}{3}\right) = \frac{1}{3}\left(\cos\frac{3\pi}{2} + i\sin\frac{3\pi}{2}\right) = -\frac{i}{3}\\
+	$
+	
+	\section{Представить в алгебраической форме:}
+	
+	$
+	\displaystyle\sin\left(\frac{\pi}{2} + 5i\right) = \sin\frac{\pi}{2}\cdot\cos5i - \cos\frac{\pi}{2}\cdot\sin5i = \cos5i = \frac{e^{i5i} + e^{-i5i}}{2} = \frac{e^{-5} + e^5}{2} = \ch5
+	$
+	
+	\section{Представить в алгебраической форме:}
+	
+	$
+	\displaystyle\arcsin\frac{\sqrt{3}}{2} = \frac{\pi}{3}
+	$
+	
+	\section{Представить в алгебраической форме:}
+	
+	$
+	\displaystyle(-1 + 2i)^{2i} = e^{2i\Ln(-1 + 2i)} \circledequals\\
+	\Ln(-1 + 2i) = \ln|-1 + 2i| + i\Arg(-1 + 2i) = \ln\sqrt{5} + i(\pi - \arctg2 + 2\pi k),\, k \in \mathbb{N}\\
+	\circledequals e^{2i\left(\frac{1}{2}\ln5 + i(\pi - \arctg2 + 2\pi k)\right)} = e^{i\ln5}e^{-2(\pi + 2\arctg2 + 2\pi k)} =\\
+	e^{-2\pi + 2\arctg2 - 4\pi k}(\cos\ln5 + i\sin\ln5) =\\
+	e^{-2\pi + 2\arctg2 - 4\pi k}\cos\ln5 + e^{-2\pi + 2\arctg2 - 4\pi k}i\sin\ln5
+	$
+	
+	\section{Представить в алгебраической форме:}
+	
+	$
+	\displaystyle\Ln(-1 - i) = \ln|-1 - i| + i\Arg(-1 - i) = \ln\sqrt{2} + i(\pi + \arctg1 + 2\pi n) = \ln\sqrt{2} + i\left(\frac{5\pi}{4} + 2\pi n\right)
+	$
+	
+	\section{Вычертить область, заданную неравенствами:}
+	
+	$
+	\displaystyle D = \{z: |z - 1 - i| \leq 1, \Imag z > 1, \Real z \geq 1\}\\
+	|z - 1 - i| \leq 1\\
+	|x + yi - 1 - i| \leq 1\\
+	|(x - 1) + i(y - 1)| \leq 1\\
+	\sqrt{(x - 1)^2 + (y - 1)^2} \leq 1\\
+	\begin{cases}
+		(x -1)^2 + (y - 1)^2 \leq 1\\
+		x \geq 1\\
+		y > 1
+	\end{cases}
+	$
+	
+	\begin{tikzpicture}[scale=2.3]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-0.9,-0.9) grid (2.9,2.9);
+		
+		% Оси координат
+		\draw[thick,->] (0,0) -- (2.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,0) -- (0,2.5) node[anchor=south east] {y};
+		
+		% Подписи делений
+		\foreach \x in {0,1,2}
+			\draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+		\foreach \y in {0,1,2}
+			\draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+		
+		% Графики
+		\draw[thick, blue] (1,1) circle (1cm);
+		\draw[thick, blue] (-1,1) -- (3,1);
+		\draw[thick, blue] (1,-1) -- (1,3);
+		
+		% Облачть решения
+		\fill[green, opacity=0.3] (1,1) -- ++(0:1cm) arc (0:90:1cm) -- cycle;
+		
+		\draw[thick, green, opacity=0.7] (2,1) arc (0:90:1cm);
+		\foreach \a in {0,10,...,90}
+			\draw[thick] ({1 + 0.8 * cos(\a)},{1 + 0.8 * sin(\a)}) -- ++(\a:0.2cm);
+		
+		\foreach \a in {0.1,0.2,...,1}
+			\draw[thick] (1,1 + \a) -- (1.2,1 + \a);
+		\draw[thick, green, opacity=0.7] (1,1) -- (1, 2);
+		
+		\foreach \a in {0.1,0.2,...,1}
+			\draw[thick] (1 + \a,1) -- (1 + \a,0.8);
+			
+		\fill[white] (1,1) circle (0.1cm);
+		\draw[thick] (1,1) circle (0.1cm);
+		
+		\fill[white] (2,1) circle (0.1cm);
+		\draw[thick] (2,1) circle (0.1cm);
+	\end{tikzpicture}
+	
+	\section{Определить вид пути и в случае, когда он проходит через точку $\infty$, исследовать его поведение в этой точке:}
+	
+	$
+	\displaystyle z = 2\sec t - i3\tg t\\
+	x + iy = 2\sec t - i3\tg t\\
+	\begin{cases}
+		x = 2\sec t\\
+		y = -3\tg t
+	\end{cases} t \in \left(-\frac{\pi}{2}; \frac{\pi}{2}\right)\\
+	\begin{cases}
+		\displaystyle x = \frac{2}{\cos t}\\
+		\displaystyle y = -3\frac{\sin t}{\cos t}
+	\end{cases} \Leftrightarrow
+	\begin{cases}
+		\displaystyle\cos t = \frac{2}{x}\\
+		\displaystyle\sin t = -\frac{2y}{3x}
+	\end{cases}\\
+	\sin^2 t + \cos^2 t = 1\\
+	\frac{4}{x^2} + \frac{4y^2}{9x^2} = 1\\
+	\frac{36 + 4y^2}{9x^2} = 1\\
+	9x^2 = 36 + 4y^2\\
+	x^2 = 4 + \frac{y^2}{\frac{9}{4}}\\
+	x^2 - \frac{y^2}{\frac{9}{4}} = 4\\
+	\frac{x^2}{4} - \frac{y^2}{9} = 1\\
+	\\
+	t = -\frac{\pi}{2}:\\
+	x = +\infty\\
+	y = +\infty\\
+	t = -\frac{\pi}{4}:\\
+	x = 2\sqrt{2}\\
+	y = 3\\
+	t = 0:\\
+	x = 2\\
+	y = 0\\
+	t = \frac{\pi}{4}:\\
+	x = 2\sqrt{2}\\
+	y = -3\\
+	t = \frac{3\pi}{4}:
+	x = -2\sqrt{2}\\
+	y = 3\\
+	t = \pi:\\
+	x = -2\\
+	y = 0\\
+	t = -\frac{3\pi}{4}:\\
+	x = -2\sqrt{2}\\
+	y = -3\\
+	t = \frac{\pi}{2}:\\
+	x = -\infty\\
+	y = -\infty
+	$
+	
+	\begin{tikzpicture}
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-6.9,-6.9) grid (6.9,6.9);
+		
+		% Оси координат
+		\draw[thick,->] (-6,0) -- (6.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-6) -- (0,6.5) node[anchor=south east] {y};
+		
+		% Подписи делений
+		\foreach \x in {-6,-5,...,6}
+		\draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+		\foreach \y in {-6,-5,...,6}
+		\draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+		
+		% График
+		\draw[blue, thick, domain=-65:65, samples=100, variable=\x]
+		plot ({2/cos(\x)}, {-3*sin(\x)/cos(\x)});
+		\draw[blue, thick, domain=115:245, samples=100, variable=\x]
+		plot ({2/cos(\x)}, {-3*sin(\x)/cos(\x)});
+		
+		% Точки
+		\fill[black] (2*2^0.5,3) circle (0.1cm) node[right] {$t = \frac{\pi}{4}$};
+		\fill[black] (2,0) circle (0.1cm) node[above right] {$t = 0$};
+		\fill[black] (2*2^0.5,-3) circle (0.1cm) node[right] {$t = -\frac{\pi}{4}$};
+		\fill[black] (-2*2^0.5,3) circle (0.1cm) node[left] {$t = \frac{3\pi}{4}$};
+		\fill[black] (-2,0) circle (0.1cm) node[above left] {$t = \pi$};
+		\fill[black] (-2*2^0.5,-3) circle (0.1cm) node[left] {$t = -\frac{3\pi}{4}$};
+		
+		% Стрелки
+		\foreach \t in {-65,-55,...,65}
+			\draw[ultra thick,->,domain=\t:\t+0.01, samples=100, variable=\x,blue] plot ({2/cos(\x)}, {-3*sin(\x)/cos(\x)});
+		\foreach \t in {115,125,...,245}
+			\draw[ultra thick,->,domain=\t:\t+0.01, samples=100, variable=\x,blue] plot ({2/cos(\x)}, {-3*sin(\x)/cos(\x)});
+	\end{tikzpicture}
+	
+	\section{Восстановить голоморфную в окрестности точки $z_0$ функцию $f(z)$ по известной действительной части $u(x,y)$ или мнимой $v(x,y)$ и начальному значению $f(z_0)$:}
+	
+	$
+	\displaystyle u(x,y) = x^2 - y^2 - 2x + 1\\
+	f(0) = 1\\
+	\begin{cases}
+		\displaystyle\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\\
+		\displaystyle\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
+	\end{cases}\\
+	\frac{\partial u}{\partial x} = 2x - 2\\
+	\frac{\partial^2 u}{\partial x^2} = 2\\
+	\frac{\partial u}{\partial y} = -2y\\
+	\frac{\partial^2 u}{\partial y^2} = -2\\
+	2 - 2 = 0\\
+	\frac{\partial v}{\partial x} = 2y\\
+	v = 2xy + \phi(y)\\
+	\frac{\partial v}{\partial y} = 2x + \phi'(y) = 2x - 2\\
+	\phi'(y) = -2\\
+	\phi(y) = -2 + c\\
+	v(x,y) = 2xy - 2y + c\\
+	f(z) = u + iv = x^2 - y^2 -2x + 1 + i(2xy - 2y + c) \circledequals\\
+	f(0) = 1 + ic = 1 \Rightarrow c = 0\\
+	\circledequals x^2 - y^2 -2x + 1 + i(2xy - 2y) = x^2 - y^2 - 2xyi - 2x - 2yi + 1 \circledequals\\
+	z^2 = x^2 - y^2 + 2xyi\\
+	\circledequals z^2 - 2z + 1\\
+	f(z) = z^2 - 2z + 1
+	$
+	
+	\section{Вычиcлить интеграл от функции комплексной переменной по данному пути:}
+	
+	$
+	\displaystyle\int_L(\cos iz + 3z^2)\,dz \circledequals\\
+	L = \{z: |z| = 1, \Imag z \geq 0\}\\
+	|z| = 1\\
+	\sqrt{x^2 + y^2} = 1\\
+	\begin{cases}
+		x^2 + y^2 = 1\\
+		y \geq 0
+	\end{cases}\\
+	\begin{tikzpicture}[scale=3]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-2.9,-0.9) grid (2.9,2.9);
+		
+		% Оси координат
+		\draw[thick,->] (-2,0) -- (2.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-1) -- (0,2.5) node[anchor=south east] {y};
+		
+		% Подписи делений
+		\foreach \x in {-2,-1,...,2}
+			\draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+		\foreach \y in {-0,1,2}
+			\draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+			
+		% Графики
+		\draw[thick, blue] (1,0) arc (0:180:1cm);
+		\draw[thick, blue] (-3,0) -- (3,0);
+		
+		% Стрелки
+		\foreach \t in {0,20,...,180}
+			\draw[ultra thick,->,domain=\t:\t+0.01, samples=100, variable=\x,blue] plot ({cos(\x)}, {sin(\x)});
+	\end{tikzpicture}\\
+	\circledequals \int_{1}^{-1}(\cos iz + 3z^2)\, dz = \frac{1}{i}\sin iz\vert_{1}^{-1} + z^3\vert_{1}^{-1} = -i\sin iz\vert_{1}^{-1} + z^3\vert_{1}^{-1} = i\sin z + i\sin z - 1 - 1 = 2(i\sin z - 1)
+	$
+	
+	\section{Найти радиус сходимости степенного ряда:}
+	
+	$
+	\displaystyle\sum_{n = 1}^{\infty}\frac{n}{n^2 + i}z^{n^2}\\
+	R = \frac{1}{\rho};\, \rho = \overline{\lim_{n\rightarrow\infty}}\sqrt[n]{|c_n|}\\
+	c_n = \frac{n}{n^2 + i}\\
+	n = 1:\, c_1 = \frac{1}{1 + i}\\
+	n = 2:\, c_2 = 0\\
+	n = 3:\, c_3 = 0\\
+	n = 4:\, c_4 = \frac{4}{16 + i}\\
+	n = 5:\, c_5 = 0\\
+	n = 6:\, c_6 = 0\\
+	n = 7:\, c_7 = 0\\
+	n = 8:\, c_8 = 0\\
+	n = 9:\, c_9 = \frac{9}{81 + i}\\
+	...\\
+	c_n = 
+	\begin{cases}
+		\displaystyle 0,\, n \neq k^2\\
+		\displaystyle\frac{n}{n^2 + i},\, n = k^2
+	\end{cases}
+	k \in \mathbb{N}\\
+	c_{n_{k}^1} = 0 \longrightarrow 0\\
+	c_{n_{k}^2} = c_{k^2} = \frac{k^2}{k^4 + i}\\
+	|c_{k^2}| = \left|\frac{k^2}{k^4 + i}\right| = \frac{|k^2|}{|k^4 + i|} = \frac{\sqrt{k^4}}{\sqrt{k^8 + 1}} = \frac{k^2}{\sqrt{k^8 + 1}}\\
+	\overline{\lim_{n\rightarrow\infty}}\sqrt[n]{|c_n|} = \lim_{k\rightarrow\infty}\sqrt[k^2]{|c_{k^2}|} = \lim_{k\rightarrow\infty}\sqrt[k^2]{\frac{k^2}{\sqrt{k^8 + i}}} \circledequals\\
+	k^2 = n\\
+	\circledequals \lim_{n\rightarrow\infty}\sqrt[n]{\frac{n}{\sqrt{n^4 + 1}}} = \lim_{n\rightarrow\infty}\sqrt[2n]{\frac{n^2}{n^4 + 1}} = \lim_{n\rightarrow\infty}\left(\frac{n^2}{n^4 + 1}\right)^\frac{1}{2n} =\\
+	\lim_{n\rightarrow\infty}\left(\frac{n^2 + n^4 + 1 - n^4 - 1}{n^4 + 1}\right)^{\frac{1}{2n}} = \lim_{n\rightarrow\infty}\left(1 + \frac{-n^4 + n^2 - 1}{n^4 + 1}\right)^{\frac{1}{2n}} =\\
+	\lim_{n\rightarrow\infty}\left(1 + \frac{-n^4 + n^2 - 1}{n^4 + 1}\right)^{\frac{1}{2n} \cdot \frac{-n^4 + n^2 - 1}{n^4 + 1} \cdot \frac{n^4 + 1}{-n^4 + n^2 - 1}} = \lim_{n\rightarrow\infty}e^{\frac{1}{2n} \cdot \frac{-n^4 + n^2 - 1}{n^4 + 1}} = \\
+	\lim_{n\rightarrow\infty}e^{\frac{-n^4 + n^2 - 1}{2n^5 + 2n}} = \lim_{n\rightarrow\infty}e^{\frac{n^4\left(-1 + \frac{1}{n^2} - \frac{1}{n^4}\right)}{2n^5\left(1 + \frac{1}{n^4}\right)}} = \lim_{n\rightarrow\infty}e^{\frac{-1}{2n}} = e^0 = 1\\
+	\rho = 1 \Rightarrow R = 1
+	$
+	
+	\section{Найти лорановские разложения данной функции в 0 и в $\infty$:}
+	
+	$
+	\displaystyle f(z) = \frac{8z - 256}{z^4 + 8z^3 - 128z^2}\\
+	z^4 + 8z^3 - 128z^2 = 0\\
+	z^2(z^2 + 8z - 128) = 0\\
+	z_1 = 0\\
+	z^2 + 8z - 128 = 0\\
+	D = 64 + 512 = 576\\
+	z_2 = \frac{-8 + 24}{2} = 8\\
+	z_3 = \frac{-8 - 24}{2} = -16\\
+	\frac{8z - 256}{z^4 + 8z^3 - 128z^2} = \frac{A}{z} + \frac{B}{z^2} + \frac{C}{z - 8} + \frac{D}{z + 16} =\\
+	\frac{Az(z - 8)(z + 16) + B(z - 8)(z + 16) + Cz^2(z + 16) + Dz^2(z - 8)}{z^2(z - 8)(z + 16)} =\\
+	\frac{A(z^3 + 8z^2 - 128z) + B(z^2 + 8z - 128) + C(z^3 + 16z^2) + D(z^3 - 8z^2)}{z^2(z - 8)(z + 16)}\\
+	z^3:\, 0 = A + C + D\\
+	z^2:\, 0 = 8A + B + 16C - 8D\\
+	z^1:\, 8 = -128A + 8B\\
+	z^0:\, -256 = -128B\\
+	B = 2\\
+	-128A = -8 \Rightarrow A = \frac{1}{16}\\
+	C = - A - D = -\frac{1}{16} - D\\
+	\frac{1}{2} + 2 - 1 - 16D - 8D = \frac{3}{2} - 24D = 0 \Rightarrow 24D = \frac{3}{2} \Rightarrow D = \frac{1}{16}\\
+	C = -\frac{1}{8}\\
+	A = \frac{1}{16};\, B = 2;\, C = -\frac{1}{8};\, D = \frac{1}{16}\\
+	\frac{8z - 256}{z^4 + 8z^3 - 128z^2} = \frac{1}{16z} + \frac{2}{z^2} - \frac{1}{8(z - 8)} + \frac{1}{16(x + 16)}\\
+	$\\
+	В окрестности 0:\\
+	$
+	\displaystyle\frac{2}{z^2} + \frac{1}{16z}\\
+	-\frac{1}{8(z - 8)} = \frac{1}{8(8 - z)} \circledequals\\
+	\frac{1}{1 - z} = \sum_{n = 0}^{\infty}z^n\\
+	\circledequals \frac{1}{16} \cdot \frac{1}{\left(1 - \frac{z}{8}\right)} = \frac{1}{16} \sum_{n = 0}^{\infty}\left(\frac{z}{8}\right)^n = \sum_{n = 0}^{\infty}\frac{1}{8^{n + 2}}z^n\\
+	\frac{1}{16(z + 16)} \circledequals\\
+	\frac{1}{1 + z} = \sum_{n = 0}^{\infty}(-1)^nz^n\\
+	\circledequals \frac{1}{256} \cdot \frac{1}{1 + \frac{z}{16}} = \frac{1}{256}\sum_{n = 0}^{\infty}\frac{(-1)^n}{16^n}z^n = \sum_{n = 0}^{\infty}\frac{(-1)^n}{16^{n + 2}}z^n\\
+	f(z) = \frac{2}{z^2} + \frac{1}{16z} + \sum_{n = 0}^{\infty}\left(\frac{1}{8^{n + 2}} + \frac{(-1)^n}{16^{n + 2}}\right)z^n\\
+	$\\
+	В окрестности $\infty$:\\
+	$
+	\displaystyle\frac{2}{z^2} + \frac{1}{16z}\\
+	-\frac{1}{8(z - 8)} = -\frac{1}{8z} \cdot \frac{1}{1 - \frac{8}{z}} = -\frac{1}{8z}\sum_{n = 0}^{\infty}\left(\frac{8}{z}\right)^n = \sum_{n = 0}^{\infty}\left(-\frac{8^{n - 1}}{z^{n + 1}}\right) = \left|
+	\begin{array}{c}
+		n' = -(n + 1)\\
+		n = -n' - 1
+	\end{array}
+	\right| = \sum_{n = -1}^{-\infty}\left(-\frac{1}{8^{n + 2}}\right)z^n\\
+	\frac{1}{16(z + 16)} = \frac{1}{16z} \cdot \frac{1}{1 + \frac{16}{z}} = \frac{1}{16z}\sum_{n = 0}^{\infty}(-1)^n\left(\frac{16}{z}\right)^n = \sum_{n = 0}^{\infty}\frac{(-1)^n16^{n - 1}}{z^{n + 1}} = \left|
+	\begin{array}{c}
+		n' = -(n + 1)\\
+		n = -n' - 1
+	\end{array}
+	\right| = \sum_{n = -1}^{-\infty}\frac{(-1)^{-n - 1}}{16^{n + 2}}z^n\\
+	f(z) = \sum_{n = -\infty}^{-3}\left(-\frac{1}{8^{n + 2}} + \frac{(-1)^{-n - 1}}{16^{n + 2}}\right)z^n + (-1 - 1 + 2)z^{-2} + \left(-\frac{1}{8} + \frac{1}{16} + \frac{1}{16}\right)z^{-1} = \sum_{n = -\infty}^{-3}\left(-\frac{1}{8^{n + 2}} + \frac{(-1)^{-n - 1}}{16^{n + 2}}\right)z^n
+	$
+	
+	\section{Найти все лорановские разложения данной функции по степеням $z - z_0$:}
+	
+	$
+	\displaystyle z_0 = -3 - i\\
+	f(z) = \frac{z + 2}{(z - 1)(z + 3)}\\
+	\begin{tikzpicture}[scale=1.6]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-7.9,-5.9) grid (1.9,3.9);
+		
+		% Оси координат
+		\draw[thick,->] (-8,0) -- (1.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-6) -- (0,3.5) node[anchor=south east] {y};
+		
+		% Подписи делений
+		\foreach \x in {-7,-6,...,1}
+			\draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+		\foreach \y in {-5,-4,...,3}
+			\draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+		
+		% Точки
+		\fill[black] (-3,-1) circle (0.1cm) node[left] {$z_0$};
+		\draw[thick] (-3,0) circle (0.1cm);
+		\draw[thick] (1,0) circle (0.1cm);
+		
+		% Области
+		\draw[thick] (-3,-1) circle (1cm);
+		\draw[thick] (-3,-1) circle (4.1231cm);
+		
+		\node at (-2.5,-1.5) {\text{I}};
+		\node at (-1.5,-2.5) {\text{II}};
+		\node at (0.5,-4.5) {\text{III}};
+		
+		% Расстояния
+		\draw[thick, blue] (-3,0) -- (-3,-1);
+		\node[blue] at (-2.8,-0.5) {1};
+		
+		\draw[thick, blue] (-3,-1) -- (1,0);
+		\node[blue] at (-1,-0.7) {$\sqrt{17}$};
+	\end{tikzpicture}\\
+	\frac{z + 2}{(z - 1)(z + 3)} = \frac{A}{z - 1} + \frac{B}{z + 3} = \frac{Az + 3A + Bz - B}{(z - 1)(z + 3)}\\
+	z^1:\, 1 = A + B\\
+	z^0:\, 2 = 3A - B\\
+	A = \frac{3}{4};\, B = \frac{1}{4}\\
+	\frac{z + 2}{(z - 1)(z + 3)} = \frac{3}{4(z - 1)} + \frac{1}{4(z + 3)}\\
+	\text{I}) |z - z_0| < 1:\\
+	\frac{3}{4(z - 1)} = \frac{3}{4(z - z_0 + z_0 - 1)} = \frac{3}{4(z_0 - 1)} \cdot \frac{1}{1 + \frac{z - z_0}{z_0 - 1}} = \frac{3}{4(z_0 - 1)} \cdot \frac{1}{1 - \frac{z - z_0}{1 - z_0}} = \frac{3}{4(z_0 - 1)}\sum_{n = 0}^{\infty}\left(\frac{z - z_0}{1 - z_0}\right)^n = \sum_{n = 0}^{\infty}\left(-\frac{3}{4(1 - z_0)^{n + 1}}\right)(z - z_0)^n\\
+	\frac{1}{4(z + 3)} = \frac{1}{4(z - z_0 + z_0 + 3)} = \frac{1}{4(z_0 + 3)} \cdot \frac{1}{1 + \frac{z - z_0}{z_0 + 3}} =\\
+	\frac{1}{4(z_0 + 3)}\sum_{n = 0}^{\infty}(-1)^n\left(\frac{z - z_0}{z_0 + 3}\right)^n = \sum_{n = 0}^{\infty}\frac{(-1)^n}{4(z_0 + 3)^{n + 1}}(z - z_0)^n\\
+	f(z) = \sum_{n = 0}^{\infty}\left(-\frac{3}{4(1 - z_0)^{n + 1}} + \frac{(-1)^n}{4(z_0 + 3)^{n + 1}}\right)(z - z_0)^n\\
+	\text{II}) 1 < |z - z_0| < \sqrt{17}:\\
+	\frac{3}{4(z - 1)} \circledequals\\
+	\left|\frac{z - z_0}{z_0 - 1}\right| < 1 \Rightarrow |z - z_0| < |z_0 - 1| = |-3 - i - 1| = |-4 - i| = \sqrt{17}\\
+	\circledequals \sum_{n = 0}^{\infty}\left(-\frac{3}{4(1 - z_0)^{n + 1}}\right)(z - z_0)^n\\
+	\frac{1}{4(z + 3)} \circledequals\\
+	\left|\frac{z - z_0}{z_0 + 3}\right| < 1 \Rightarrow |z - z_0| < |z_0 + 3| = |-3 - i + 3| = |-i| = 1\\
+	\circledequals \frac{1}{4(z - z_0 + z_0 + 3)} = \frac{1}{4(z - z_0)} \cdot \frac{1}{1 + \frac{z_0 + 3}{z - z_0}} = \frac{1}{4(z - z_0)}\sum_{n = 0}^{\infty}(-1)^n\left(\frac{z_0 + 3}{z - z_0}\right)^n = \sum_{n = 0}^{\infty}\frac{(-1)^n(z_0 + 3)^n}{4(z - z_0)^{n + 1}} = \left|
+	\begin{array}{c}
+		n' = -(n + 1)\\
+		n = -n' - 1
+	\end{array}
+	\right| = \sum_{n = -1}^{-\infty}\frac{(-1)^{-n - 1}}{4(z_0 + 3)^{n + 1}}(z - z_0)^n\\
+	f(z) = \sum_{n = -\infty}^{-1}\frac{(-1)^{-n - 1}}{4(z_0 + 3)^{n + 1}}(z - z_0)^n + \sum_{n = 0}^{\infty}\left(-\frac{3}{4(1 - z_0)^{n + 1}}\right)(z - z_0)^n\\
+	\text{III}) |z - z_0| > \sqrt{17}:\\
+	\frac{3}{4(z - 1)} \circledequals\\
+	\left|\frac{z - z_0}{z_0 - 1}\right| < 1 \Rightarrow |z - z_0| < |z_0 - 1| = |-3 - i - 1| = |-4 - i| = \sqrt{17}\\
+	\circledequals \frac{3}{4(z - z_0 + z_0 - 1)} = \frac{3}{4(z - z_0)} \cdot \frac{1}{1 + \frac{z_0 - 1}{z - z_0}} = \frac{3}{4(z - z_0)}\sum_{n = 0}^{\infty}(-1)^n\left(\frac{z_0 - 1}{z - z_0}\right)^n = \sum_{n = 0}^{\infty}\frac{(-1)^n3(z_0 - 1)^n}{4(z - z_0)^{n + 1}} = \left|
+	\begin{array}{c}
+		n' = -(n + 1)\\
+		n = -n' - 1
+	\end{array}
+	\right| = \sum_{n = -1}^{-\infty}\frac{(-1)^{-n - 1}3}{4(z_0 - 1)^{n + 1}}(z - z_0)^n\\
+	\frac{1}{4(z + 3)} \circledequals\\
+	\left|\frac{z - z_0}{z_0 + 3}\right| < 1 \Rightarrow |z - z_0| < |z_0 + 3| = |-3 - i + 3| = |-i| = 1\\
+	\circledequals \sum_{n = -1}^{-\infty}\frac{(-1)^{-n - 1}}{4(z_0 + 3)^{n + 1}}(z - z_0)^n\\
+	f(z) = \sum_{-\infty}^{-1}\left(\frac{(-1)^{-n - 1}3}{4(z_0 - 1)^{n + 1}} + \frac{(-1)^{-n - 1}}{4(z_0 + 3)^{n + 1}}\right)(z - z_0)^n
+	$
+	
+	\section{Данную функцию разложить в ряд Лорана в окрестности точки $z_0$:}
+	
+	$
+	\displaystyle z_0 = 2\\
+	f(z) = z\cos\frac{1}{z - 2} \circledequals\\
+	\cos z = \sum_{n = 0}^{\infty}\frac{(-1)^nz^{2n}}{(2n)!}\\
+	((z - 2) + 2)\sum_{n = 0}^{\infty}\frac{(-1)^n}{(z - 2)^{2n}(2n)!} = \sum_{n = 0}^{\infty}\frac{(-1)^n}{(z - 2)^{2n - 1}(2n)!} + \sum_{n = 0}^{\infty}\frac{(-1)^n2}{(z - 2)^{2n}(2n)!} =\\
+	\left|
+	\begin{array}{cc}
+		n' = -(2n - 1) & n'' = -2n\\
+		\displaystyle n = \frac{-n' + 1}{2} & \displaystyle n = -\frac{n''}{2}
+	\end{array}
+	\right| = \sum_{n = 1}^{-\infty}\frac{(-1)^\frac{-n + 1}{2}}{(-n + 1)!}(z - 2)^n +\\
+	\sum_{n = 0}^{-\infty}\frac{(-1)^{-\frac{n}{2}}2}{(-n)!}(z - 2)^n\\
+	f(z) = \sum_{n = -\infty}^{0}\left(\frac{(-1)^\frac{-n + 1}{2}}{(-n + 1)!} + \frac{(-1)^{-\frac{n}{2}}2}{(-n)!}\right)(z - 2)^n + (z - 2)^1
+	$
+	\newpage
+	
+	\section{Определить тип особой точки $z$ = 0 для данной функции:}
+	
+	$
+	\displaystyle z = 0\\
+	f(z) = z^4\cos\frac{5}{z^2}\\
+	\lim_{z\rightarrow0}z^4\cos\frac{5}{z^2} = \lim_{z\rightarrow0}z^4\left(1 - \frac{5^2}{z^{4}2} + \osmall\left(\frac{1}{z^4}\right)\right) = \lim_{z\rightarrow0}\left(z^4 - \frac{25}{2} + \osmall(1)\right) = -\frac{25}{2} + \osmall(1) \Rightarrow z = 0 - \text{устранимая ососбая точка}
+	$
+	
+	\section{Для данной функции найти все изолированные особые точки и определить их тип:}
+	
+	$
+	\displaystyle f(z) = \frac{1}{\cos z}\\
+	z_k = \frac{\pi}{2} + \pi k,\, k = 0,1,2,...\, - \text{изолированная ососбая точка однозначного характера}\\
+	z_k\xrightarrow[k \to \infty]{}\infty\, - \text{не изолированная ососбая точка однозначного характера}\\
+	\lim_{z\rightarrow\frac{\pi}{2} + \pi k}\frac{1}{\cos z} = \infty \Rightarrow z_k\, - \text{полюс}\\
+	\lim_{z\rightarrow\frac{\pi}{2} + \pi k}\frac{(z - \frac{\pi}{2} - \pi k)^n}{\cos z} = \lim_{z\rightarrow\frac{\pi}{2} + \pi k}\frac{n(z - \frac{\pi}{2} - \pi k)^{n - 1}}{-\sin z} = \begin{cases}
+		0,\, n - 1 \neq 0\\
+		\displaystyle\frac{1}{(-1)^k},\, n - 1 = 0 \Rightarrow n = 1
+	\end{cases}\\
+	\Rightarrow z_k\, - \text{полюс 1-го порядка}
+	$
+	
+\end{document}

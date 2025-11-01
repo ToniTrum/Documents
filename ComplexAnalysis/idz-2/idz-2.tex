@@ -1,0 +1,558 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\onehalfspacing
+
+\newcommand{\circledequals}{\mathbin{\tikz \node[draw,circle,inner sep=1pt] {$=$};}}
+\newcommand{\circledLeftrightarrow}{\mathbin{\tikz \node[draw,circle,inner sep=1pt] {$\Leftrightarrow$};}}
+
+\DeclareMathOperator{\Imag}{Im}
+\DeclareMathOperator{\Res}{Res}
+
+\begin{document}
+	% Титульный лист
+	\begin{titlepage}
+		\centering
+		
+		\includegraphics{FEFU-logo}\\
+		МИНИСТЕРСТВО НАУКИ И ВЫСШЕГО ОБРАЗОВАНИЯ\\РОССИЙСКОЙ ФЕДЕРАЦИИ\\
+		Федеральное государственное автономное образовательное учреждение высшего образования\\
+		\textbf{«Дальневосточный федеральный университет»}\\
+		\textbf{(ДВФУ)}
+		\vspace*{0.3cm}
+		\rule{\linewidth}{0.7mm}
+		\vspace*{0.3cm}
+		
+		\textbf{ИНСТИТУТ МАТЕМАТИКИ И КОМПЬЮТЕРНЫХ ТЕХНОЛОГИЙ}\\
+		\vspace*{0.3cm}
+		\textbf{Кафедра математического и компьютерного моделирования}\\
+		\vspace*{0.9cm}
+		
+		Кулахсзян Сергей Грайрович\\
+		\textbf{ИНДИВИДУАЛЬНОЕ ДОМАШНЕЕ ЗАДАНИЕ №1 ПО ТЕОРИИ ФУНКЦИЙ КОМПЛЕКСНОГО ПЕРЕМЕННОГО}\\
+		\vspace*{0.3cm}
+		
+		Направление подготовки 02.03.01сцт Сквозные цифровые технологии,\\ бакалавриатская программа «Математика и компьютерные науки»\\ Очной (заочной) формы обучения\\
+		\vspace{1cm}
+		
+		\raggedleft
+		\textbf{Студент группы Б9123-02.03.01сцт2}\\
+		\rule{4.5cm}{0.3mm} С. Г. Кулахсзян\\
+		\vspace{1cm}
+		
+		\textbf{Руководитель проекта}\\
+		\rule{4.2cm}{0.3mm} Ю. А. Клевчихин\\
+		
+		\vfill
+		\centering
+		Владивосток\\
+		2025
+	\end{titlepage}
+	
+	% Оглавление
+	\tableofcontents
+	\newpage
+	
+	\section{Вычислить интеграл:}
+	
+	$
+	\displaystyle \oint\limits_{\left| z - \frac{3}{2} \right| = 2} \frac{2z(z - 1)}{\sin z}\, dz \circledequals\\
+	\begin{tikzpicture}[scale=2]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-0.9,-2.9) grid (4.9,2.9);
+		
+		% Оси координат
+		\draw[thick,->] (-0.9,0) -- (4.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-2) -- (0,2.5) node[anchor=south east] {y};
+		
+		% Графики
+		\draw[thick, blue] (3/2,0) circle (2cm);
+		
+		% Точки
+		\fill[black] (0,0) circle (0.05cm) node[anchor=north west] {0};
+		\fill[black] (3.14,0) circle (0.05cm) node[anchor=north] {$\pi$};
+	\end{tikzpicture}\\	
+	\sin z = 0\\
+	z = \pi n, n \in \mathbb{Z} - \text{и.о.т.о.х.}\\
+	\circledequals 2\pi i\left(\Res_{z = 0} \frac{2z(z - 1)}{\sin z} + \Res_{z = \pi} \frac{2z(z - 1)}{\sin z}\right) \circledequals\\
+	\lim\limits_{z \rightarrow 0} \frac{2z(z - 1)}{\sin z} = \lim\limits_{z \rightarrow 0} \frac{2z(z - 1)}{z - \frac{z^3}{3!} + \frac{z^5}{5!} - ...} = \lim\limits_{z \rightarrow 0} \frac{2(z - 1)}{1 - \frac{z^2}{3!} + \frac{z^4}{5!} - ...} = -2 \Rightarrow z = 0 - \text{устранимая особая точка} \Rightarrow \Res_{z = 0} \frac{2z(z - 1)}{\sin z} = 0\\
+	\lim\limits_{z \rightarrowtail \pi + 0} \frac{2z(z - 1)}{\sin z} = \lim\limits_{z \rightarrowtail \pi + 0} \frac{2\pi(\pi - 1)}{\sin(\pi + 0)} = \lim\limits_{z \rightarrowtail \pi + 0} \frac{2\pi(\pi - 1)}{-0} = -\infty\\
+	\lim\limits_{z \rightarrowtail \pi - 0} \frac{2z(z - 1)}{\sin z} = \lim\limits_{z \rightarrowtail \pi - 0} \frac{2\pi(\pi - 1)}{\sin(\pi - 0)} = \lim\limits_{z \rightarrowtail \pi - 0} \frac{2\pi(\pi - 1)}{+0} = +\infty\\
+	\lim\limits_{z \rightarrowtail \pi + 0} \frac{2z(z - 1)}{\sin z} \neq \lim\limits_{z \rightarrowtail \pi - 0} \frac{2z(z - 1)}{\sin z} \Rightarrow \nexists \lim\limits_{z \rightarrowtail \pi} \frac{2z(z - 1)}{\sin z} \Rightarrow z = \pi - \text{существенная}\\
+	\text{особая точка} \Rightarrow \Res_{z = \pi} \frac{2z(z - 1)}{\sin z} = c_{-1}\\
+	2z = 2(z - \pi + \pi) = \frac{\pi}{2} + 2(z - \pi)\\
+	z - 1 = z - \pi + \pi -1 = (\pi - 1) + (z - \pi)\\
+	2z(z - 1) = \left(\frac{\pi}{2} + 2(z - \pi)\right) ((\pi - 1) + (z - \pi)) = \frac{\pi}{2}(\pi - 1) + \frac{\pi}{2}(z - \pi) + 2(\pi - 1)(z - \pi) + 2(z - \pi)^2 = \frac{\pi}{2}(\pi - 1) + \left( \frac{\pi}{2} + 2(\pi - 1) \right) (z - \pi) + 2(z - \pi)^2\\
+	\sin z = \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n - 1)!} (z - \pi)^{2n - 1}\\
+	\frac{2z(z - 1)}{\sin z} = \frac{\displaystyle \frac{\pi}{2}(\pi - 1) + \left( \frac{\pi}{2} + 2(\pi - 1) \right) (z - \pi) + 2(z - \pi)^2}{\displaystyle \sum_{n = 0}^{\infty} \frac{(-1)^n}{(2n - 1)!} (z - \pi)^{2n - 1}}\\
+	c_{-1} = -\frac{\pi}{2}(\pi - 1) + 2 \cdot 3! = \frac{\pi}{2} - \frac{\pi^2}{2} + 12\\
+	\circledequals 2\pi i\left( 0 + \frac{\pi}{2} - \frac{\pi^2}{2} + 12 \right) = \pi^2i - \pi^3i + 24\pi i
+	$
+	
+	\section{Вычислить интеграл:}
+	
+	$
+	\displaystyle \oint\limits_{|z| = 2} \frac{1 - \cos z^2}{z^2}\, dz \circledequals\\
+	\begin{tikzpicture}[scale=2]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-2.9,-2.9) grid (2.9,2.9);
+		
+		% Оси координат
+		\draw[thick,->] (-2.9,0) -- (2.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-2.9) -- (0,2.5) node[anchor=south east] {y};
+		
+		% Графики
+		\draw[thick, blue] (0,0) circle (2cm);
+		
+		% Точки
+		\fill[black] (0,0) circle (0.05cm) node[anchor=north west] {0};
+	\end{tikzpicture}\\	
+	z = 0 - \text{и.о.т.о.х.}\\
+	\circledequals 2\pi i \Res_{z = 0} \frac{1 - \cos z^2}{z^2} \circledequals\\
+	\lim\limits_{z \rightarrow 0} \frac{1 - \cos z^2}{z^2} = \lim\limits_{z \rightarrow 0} \frac{1 - 1 + \frac{z^4}{2!} - \frac{z^8}{4!} + ...}{z^2} = \lim\limits_{z \rightarrow 0} \left( \frac{z^2}{2!} - \frac{z^6}{4!} + ... \right) = 0 \Rightarrow z = 0 - \text{устранимая особая точка}\\
+	\circledequals 2\pi i \cdot 0 = 0
+	$
+	
+	\section{Вычислить интеграл:}
+	
+	$
+	\displaystyle \oint\limits_{|z| = 0.5} \frac{e^{2z} - 1 - 2z}{z\sh^2 4iz}\, dz \circledequals\\
+	\begin{tikzpicture}[scale=3]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-1,-1) grid (1,1);
+		
+		% Оси координат
+		\draw[thick,->] (-0.9,0) -- (0.7,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-0.9) -- (0,0.7) node[anchor=south east] {y};
+		
+		% Графики
+		\draw[thick, blue] (0,0) circle (0.5cm);
+		
+		% Точки
+		\fill[black] (0,0) circle (0.03cm) node[anchor=north west] {0};
+	\end{tikzpicture}\\
+	z\sh^2 4iz = 0\\
+	\sh^2 4iz = 0\\
+	\sh 4iz = 0\\
+	i\sin 4z = 0\\
+	\sin 4z = 0\\
+	4z = \pi n, n \in \mathbb{Z}\\
+	z = \frac{\pi}{4}n, n \in \mathbb{Z}\\
+	\frac{\pi}{4} \approx 0.8 > 0.5\\
+	z = 0 - \text{и.о.т.о.х.}\\
+	\circledequals 2\pi i \Res_{z = 0} \frac{e^{2z} - 1 - 2z}{z\sh^2 4iz} \circledequals\\
+	\lim\limits_{z \rightarrow 0} \frac{e^{2z} - 1 - 2z}{z\sh^2 4iz} = \lim\limits_{z \rightarrow 0} \frac{1 + 2z + \frac{(2z)^2}{2!} + ... - 1 - 2z}{z\sh^2 4iz} = \lim\limits_{z \rightarrow 0} \frac{\frac{2^2}{2!}z + \frac{2^3}{3!}z^2 + ...}{\sh^2 4iz} = \lim\limits_{z \rightarrow 0} \frac{4(\frac{2^2}{2!}z + \frac{2^3}{3!}z^2 + ...)}{(e^{4iz} - e^{-4iz})^2} = 4\lim\limits_{z \rightarrow 0} \frac{\frac{2^2}{2!}z + \frac{2^3}{3!}z^2 + ...}{e^{8iz} - 2 + e^{-8iz}} =\\
+	4\lim\limits_{z \rightarrow 0} \frac{\frac{2^2}{2!}z + \frac{2^3}{3!}z^2 + ...}{\cos 8z + i\sin 8z + \cos 8z - i\sin 8z - 2} = 4\lim\limits_{z \rightarrow 0} \frac{\frac{2^2}{2!}z + \frac{2^3}{3!}z^2 + ...}{2(\cos 8z - 1)} =\\
+	2\lim\limits_{z \rightarrow 0} \frac{\frac{2^2}{2!}z + \frac{2^3}{3!}z^2 + ...}{1 - \frac{8^2}{2!}z^2 + \frac{8^4}{4!}z^4 - ... - 1} = 2\lim\limits_{z \rightarrow 0} \frac{\frac{2^2}{2!}z + \frac{2^3}{3!}z^2 + ...}{-\frac{8z^2}{2!}z^2 + \frac{8^4}{4!}z^4 - ...} =\\
+	2\lim\limits_{z \rightarrow 0} \frac{\frac{2^2}{2!} + \frac{2^3}{3!}z + ...}{-\frac{8z^2}{2!}z + \frac{8^4}{4!}z^3 - ...} = \infty \Rightarrow z = 0 - \text{полюс}\\
+	\lim\limits_{z \rightarrow 0} \frac{e^{2z} - 1 - 2z}{z\sh^2 4iz} z^n = 2\lim\limits_{z \rightarrow 0} \frac{\frac{2^2}{2!} + \frac{2^3}{3!}z + ...}{-\frac{8z^2}{2!}z + \frac{8^4}{4!}z^3 - ...} z^n =\\
+	2\lim\limits_{z \rightarrow 0} \frac{\frac{2^2}{2!} + \frac{2^3}{3!}z + ...}{-\frac{8z^2}{2!} + \frac{8^4}{4!}z^2 - ...} z^{n - 1} = \begin{cases}
+		\displaystyle -\frac{1}{16}, n = 1\\
+		\displaystyle 0, n > 1\\
+	\end{cases} \Rightarrow z = 0 - \text{полюс 1-го порядка}\\
+	\circledequals 2\pi i \lim\limits_{z \rightarrow 0} \frac{e^{2z} - 1 - 2z}{z\sh^2 4iz} z = 2\pi i\left(-\frac{1}{16}\right) = -\frac{\pi i}{8}
+	$
+	
+	\section{Вычислить интеграл:}
+	
+	$
+	\displaystyle \oint\limits_{|z + 2i| = 2} \left( \frac{\pi}{e^\frac{\pi z}{2} + 1} + \frac{4 \cos \frac{\pi z}{1 - 2i}}{(z - 1 + 2i)^2 (z - 3 + 2i)} \right)\, dz \circledequals\\
+	\begin{tikzpicture}[scale=2]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-2.9,-4.9) grid (2.9,0.9);
+		
+		% Оси координат
+		\draw[thick,->] (-2.9,0) -- (2.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-4.9) -- (0,0.6) node[anchor=south east] {y};
+		
+		% Графики
+		\draw[thick, blue] (0,-2) circle (2cm);
+		
+		% Точки
+		\fill[black] (0,-2) circle (0.05cm) node[anchor=north west] {-2i};
+		\fill[black] (1,-2) circle (0.05cm) node[anchor=north west] {1-2i};
+	\end{tikzpicture}\\
+	e^\frac{\pi z}{2} + 1 = 0\\
+	e^\frac{\pi z}{2} = -1 = \cos(\pi + 2\pi n) = \cos(\pi + 2\pi n) + i\sin(\pi + 2\pi n) = e^{i(\pi + 2\pi n)}, n \in \mathbb{Z}\\
+	\frac{\pi z}{2} = i\pi(1 + 2n)\\
+	\frac{z}{2} = i(1 + 2n)\\
+	z = 2i + 4in, n \in \mathbb{Z}\\
+	z = -2i - \text{и.о.т.о.х.}\\
+	z - 1 + 2i = 0\\
+	z = 1 - 2i \in \{z: |z + 2i| = 2\} - \text{и.о.т.о.х.}\\
+	z - 3 + 2i = 0\\
+	z = 3 - 2i \notin \{z: |z + 2i| = 2\}\\
+	\circledequals 2\pi i \left( \Res_{z = -2i} \frac{pi}{e^\frac{\pi z}{2} + 1} + \Res_{z = 1 - 2i} \frac{4 \cos \frac{\pi z}{1 - 2i}}{(z - 1 + 2i)^2 (z - 3 + 2i)} \right) \circledequals\\
+	\lim\limits_{z \rightarrow -2i} \frac{\pi}{e^\frac{\pi z}{2} + 1} = \lim\limits_{z \rightarrow -2i} \frac{\pi}{e^{-\pi i} + 1} = \infty \Rightarrow z = -2i - \text{полюс}\\
+	\lim\limits_{z \rightarrow -2i} \frac{\pi}{e^\frac{\pi z}{2} + 1} (z + 2i)^n =\\
+	\lim\limits_{z \rightarrow -2i} \frac{\pi}{1 - 1 - \frac{\pi}{2} (z + 2i) - \left( \frac{\pi}{2} \right)^2 \frac{1}{2!} (z + 2i)^2 - ...} (z + 2i)^n =\\
+	\lim\limits_{z \rightarrow -2i} \frac{1}{-\frac{1}{2} - ( \frac{\pi}{2^2 \cdot 2!} (z + 2i) - ...} (z + 2i)^{n - 1} = \begin{cases}
+		\displaystyle -2, n = 1\\
+		\displaystyle 0, n > 1\\
+	\end{cases} \Rightarrow z = -2i - \text{полюс 1-го порядка}\\
+	\lim\limits_{z \rightarrow 1 - 2i} \frac{4 \cos \frac{\pi z}{1 - 2i}}{(z - 1 + 2i)^2 (z - 3 + 2i)} = \infty \Rightarrow z = 1 - 2i - \text{полюс}\\
+	\lim\limits_{z \rightarrow 1 - 2i} \frac{4 \cos \frac{\pi z}{1 - 2i}}{(z - 1 + 2i)^2 (z - 3 + 2i)} (z - 1 + 2i)^n =\\
+	\lim\limits_{z \rightarrow 1 - 2i} \frac{4 \cos \frac{\pi z}{1 - 2i}}{z - 3 + 2i} (z - 1 + 2i)^{n - 2} = \begin{cases}
+		\displaystyle 2, n = 2\\
+		\displaystyle 0, n > 2\\
+		\displaystyle \infty, n = 1\\
+	\end{cases} \Rightarrow z = 1 - 2i - \text{полюс 2-го порядка}\\
+	\circledequals 2\pi i\left( \lim\limits_{z \rightarrow -2i} \frac{\pi}{e^\frac{\pi z}{2} + 1} (z + 2i) + \lim\limits_{z \rightarrow 1 - 2i} \left( \frac{4 \cos \frac{\pi z}{1 - 2i}}{(z - 1 + 2i)^2 (z - 3 + 2i)} (z - 1 + 2i)^2 \right)' \right) \circledequals\\
+	\lim\limits_{z \rightarrow -2i} \frac{\pi}{e^\frac{\pi z}{2} + 1} (z + 2i) = -2\\
+	\lim\limits_{z \rightarrow 1 - 2i} \left( \frac{4 \cos \frac{\pi z}{1 - 2i}}{(z - 1 + 2i)^2 (z - 3 + 2i)} (z - 1 + 2i)^2 \right)' = \lim\limits_{z \rightarrow 1 - 2i} \left( \frac{4 \cos \frac{\pi z}{1 - 2i}}{z - 3 + 2i} \right)' = \lim\limits_{z \rightarrow 1 - 2i} \frac{-4\frac{\pi}{1 - 2i}\sin \frac{\pi z}{1 - 2i} (z - 3 + 2i) - 4\cos \frac{\pi z}{1 - 2i}}{(z - 3 + 2i)^2} = \frac{4}{4} = 1\\
+	\circledequals 2\pi i(-2 + 1) = -2\pi i
+	$
+	
+	\section{Вычислить интеграл:}
+	
+	$
+	\displaystyle \int_{0}^{2\pi} \frac{dt}{4\sqrt{3} \sin t - 7} =\\
+	\left| \begin{array}{cccc}
+		z = e^{it} \,& \displaystyle dt = \frac{dz}{zi} \,& \displaystyle \sin t = \frac{e^{it} - e^{-it}}{2i} = \frac{z - \frac{1}{z}}{2i} \,& 0 \leq t \leq \pi \mapsto |z| = 1\\
+		dz = ie^{it}dt
+	\end{array} \right| = \oint\limits_{|z| = 1} \frac{dz}{\displaystyle zi \left( \frac{2\sqrt{3}}{i} \left( z - \frac{1}{z} \right) - 7 \right)} =  \oint\limits_{|z| = 1} \frac{dz}{2\sqrt{3} (z^2 - 1) - 7zi} =\\
+	\oint\limits_{|z| = 1} \frac{dz}{2\sqrt{3} z^2 - 7zi - 2\sqrt{3}} \circledequals\\
+	\begin{tikzpicture}[scale=2]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-1.9,-1.9) grid (1.9,1.9);
+		
+		% Оси координат
+		\draw[thick,->] (-1.9,0) -- (1.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-1.9) -- (0,1.5) node[anchor=south east] {y};
+		
+		% Графики
+		\draw[thick, blue] (0,0) circle (1cm);
+		
+		% Точки
+		\fill[black] (0,{sqrt(3)/2}) circle (0.05cm) node[anchor=north west] {$\displaystyle \frac{\sqrt{3}}{2} i$};
+	\end{tikzpicture}\\
+	2\sqrt{3} z^2 - 7iz - 2\sqrt{3} = 0\\
+	D = -49 4 \cdot 4 \cdot 3 = -49 + 48 = -1\\
+	z = \frac{7i + i}{4\sqrt{3}} = \frac{2i}{\sqrt{3}} \notin \{ z : |z| = 1\}\\
+	z = \frac{7i - i}{4\sqrt{3}} = \frac{3i}{2\sqrt{3}} = \frac{\sqrt{3}}{2} i \in \{ z : |z| = 1\} - \text{и.о.т.о.х.}\\
+	\circledequals 2\pi i \Res_{z = \frac{\sqrt{3}}{2}i} \frac{1}{2\sqrt{3} z^2 - 7iz - 2\sqrt{3}} \circledequals\\
+	\lim\limits_{z \rightarrow \frac{\sqrt{3}}{2}i} \frac{1}{2\sqrt{3} z^2 - 7iz - 2\sqrt{3}} = \infty \Rightarrow z = \frac{\sqrt{3}}{2}i - \text{полюс}\\
+	\lim\limits_{z \rightarrow \frac{\sqrt{3}}{2}i} \frac{1}{2\sqrt{3} z^2 - 7iz - 2\sqrt{3}} \left( z - \frac{\sqrt{3}}{2}i \right)^n =\\
+	\lim\limits_{z \rightarrow \frac{\sqrt{3}}{2}i} \frac{1}{2\sqrt{3} (z - \frac{\sqrt{3}}{2}i) (z - \frac{2}{\sqrt{3}}i)} \left( z - \frac{\sqrt{3}}{2}i \right)^n \\
+	\lim\limits_{z \rightarrow \frac{\sqrt{3}}{2}i} \frac{1}{2\sqrt{3} (z - \frac{2}{\sqrt{3}}i)} \left( z - \frac{\sqrt{3}}{2}i \right)^{n - 1} = \begin{cases}
+		\displaystyle -\frac{1}{i} = i, n = 1\\
+		\displaystyle 0, n > 1\\
+	\end{cases} \Rightarrow z = \frac{\sqrt{3}}{2}i - \text{полюс 1-го порядка}\\
+	\circledequals 2\pi i \lim\limits_{z \rightarrow \frac{\sqrt{3}}{2}i} \frac{1}{2\sqrt{3} z^2 - 7iz - 2\sqrt{3}} \left( z - \frac{\sqrt{3}}{2}i \right) = 2\pi i \cdot i = -2\pi
+	$
+	
+	\section{Вычислить интеграл:}
+	
+	$
+	\displaystyle \int_{0}^{2\pi} \frac{dt}{(\sqrt{7} + \cos t)^2} =\\
+	\left| \begin{array}{cccc}
+		z = e^{it} \,& \displaystyle dt = \frac{dz}{zi} \,& \displaystyle \cos t = \frac{e^{it} + e^{-it}}{2} = \frac{z + \frac{1}{z}}{2} \,& 0 \leq t \leq \pi \mapsto |z| = 1\\
+		dz = ie^{it}dt
+	\end{array} \right| = \oint\limits_{|z| = 1} \frac{dz}{\displaystyle zi \left( \sqrt{7} + \frac{z + \frac{1}{z}}{2} \right)^2} = \oint\limits_{|z| = 1} \frac{dz}{\displaystyle zi \left( 7 + \sqrt{7}\left( z + \frac{1}{z} \right) + \frac{z^2 + 2 + \frac{1}{z^2}}{4} \right)} =\\
+	\oint\limits_{|z| = 1} \frac{dz}{\displaystyle 7iz + \sqrt{7}iz^2 + \sqrt{7}i + \frac{z^3}{4}i + \frac{z}{2}i + \frac{1}{4z}i} =\\
+	\oint\limits_{|z| = 1} \frac{dz}{\displaystyle \frac{28iz^2 + 4\sqrt{7}iz^3 + 4\sqrt{7}iz + iz^4 + 2iz^2 + i}{4z}} =\\
+	\oint\limits_{|z| = 1} \frac{4zdz}{(30z^2 + 4\sqrt{7}z^3 + 4\sqrt{7}z + z^4 + 1)i} =\\
+	-4i\oint\limits_{|z| = 1} \frac{zdz}{z^4 + 4\sqrt{7}z^3 + 30z^2 + 4\sqrt{7}z + 1} \circledequals\\
+	\begin{tikzpicture}[scale=2]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-1.9,-1.9) grid (1.9,1.9);
+		
+		% Оси координат
+		\draw[thick,->] (-1.9,0) -- (1.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-1.9) -- (0,1.5) node[anchor=south east] {y};
+		
+		% Графики
+		\draw[thick, blue] (0,0) circle (1cm);
+		
+		% Точки
+		\fill[black] ({sqrt(6) - sqrt(7)},0) circle (0.05cm) node[anchor=north] {$\sqrt{6} - \sqrt{7}$};
+	\end{tikzpicture}\\
+	z^4 + 4\sqrt{7}z^3 + 30z^2 + 4\sqrt{7}z + 1 = 0 | : z^2\\
+	z^2 + 4\sqrt{7}z + 30 + \frac{4\sqrt{7}}{z} + \frac{1}{z^2} = 0\\
+	z^2 + \frac{1}{z^2} + 4\sqrt{7} \left( z + \frac{1}{z} \right) + 30 = 0\\
+	\left( z + \frac{1}{z} \right)^2 + 4\sqrt{7} \left( z + \frac{1}{z} \right) + 28 = 0 |\,\, t = z + \frac{1}{z}\\
+	t^2 + 4\sqrt{7}t + 28 = 0\\
+	D = 16 \cdot 7 - 4 \cdot 28 = 0\\
+	t = \frac{-4\sqrt{7}}{2} = -2\sqrt{7}\\
+	z + \frac{1}{z} = -2\sqrt{7}\\
+	z^2 + 2\sqrt{7}z + 1 = 0\\
+	D = 4 \cdot 7 - 4 = 24\\
+	z = \frac{-2\sqrt{7} - \sqrt{24}}{2} = \frac{-2\sqrt{7} - 2\sqrt{6}}{2} = -\sqrt{7} - \sqrt{6} \notin \{ z: |z| = 1 \}\\
+	z = \frac{-2\sqrt{7} + \sqrt{24}}{2} = \frac{-2\sqrt{7} + 2\sqrt{6}}{2} = \sqrt{6} - \sqrt{7} \notin \{ z: |z| = 1 \} - \text{и.о.т.о.х.}\\
+	\circledequals 8\pi \Res_{z = \sqrt{6} - \sqrt{7}} \frac{z}{z^4 + 4\sqrt{7}z^3 + 30z^2 + 4\sqrt{7}z + 1} \circledequals\\
+	\lim\limits_{z \rightarrow \sqrt{6} - \sqrt{7}} \frac{z}{z^4 + 4\sqrt{7}z^3 + 30z^2 + 4\sqrt{7}z + 1} = \infty \Rightarrow z = \sqrt{6} - \sqrt{7} - \text{полюс}\\
+	\lim\limits_{z \rightarrow \sqrt{6} - \sqrt{7}} \frac{z}{z^4 + 4\sqrt{7}z^3 + 30z^2 + 4\sqrt{7}z + 1} (z - \sqrt{6} + \sqrt{7})^n =\\
+	\lim\limits_{z \rightarrow \sqrt{6} - \sqrt{7}} \frac{z}{(z + \sqrt{7} + \sqrt{6})^2 (z - \sqrt{6} + \sqrt{7})^2} (z - \sqrt{6} + \sqrt{7})^n =\\
+	\lim\limits_{z \rightarrow \sqrt{6} - \sqrt{7}} \frac{z}{(z + \sqrt{7} + \sqrt{6})^2} (z - \sqrt{6} + \sqrt{7})^{n - 2} = \begin{cases}
+		\displaystyle -\frac{\sqrt{6} - \sqrt{7}}{24}, n = 2\\
+		\displaystyle 0, n > 2\\
+		\displaystyle \infty, n = 1\\
+	\end{cases} \Rightarrow \\
+	z = \sqrt{6} - \sqrt{7} - \text{полюс 2-го порядка}\\
+	\circledequals 8\pi \lim\limits_{z \rightarrow \sqrt{6} \sqrt{7}} \left( \frac{z}{z^4 + 4\sqrt{7}z^3 + 30z^2 + 4\sqrt{7}z + 1} (z - \sqrt{6} + \sqrt{7})^2 \right)' =\\
+	 8\pi \lim\limits_{z \rightarrow \sqrt{6} \sqrt{7}} \left( \frac{z}{(z + \sqrt{7} + \sqrt{6})^2} \right)' =\\
+	 8\pi \lim\limits_{z \rightarrow \sqrt{6} \sqrt{7}} \frac{(z + \sqrt{7} + \sqrt{6})^2 - 2z(z + \sqrt{7} + \sqrt{6})}{(z + \sqrt{7} + \sqrt{6})^4} =\\
+	 8\pi \lim\limits_{z \rightarrow \sqrt{6} \sqrt{7}} \frac{z + \sqrt{7} + \sqrt{6} - 2z}{(z + \sqrt{7} + \sqrt{6})^3} = 8\pi \lim\limits_{z \rightarrow \sqrt{6} \sqrt{7}} \frac{-z + \sqrt{7} + \sqrt{6}}{(z + \sqrt{7} + \sqrt{6})^3} =\\
+	 8\pi \frac{-\sqrt{6} + \sqrt{7} + \sqrt{7} + \sqrt{6}}{(\sqrt{6} - \sqrt{7} + \sqrt{7} + \sqrt{6})^3} = 8\pi \frac{2\sqrt{7}}{(2\sqrt{6})^3} = 8\pi \frac{2\sqrt{7}}{8 \cdot 6\sqrt{6}} = \frac{\pi \sqrt{7}}{3\sqrt{6}}
+	$
+	
+	\section{Вычислить интеграл:}
+	
+	$
+	\displaystyle \int_{-\infty}^{+\infty} \frac{x^2 + 5}{x^4 + 5x + 6}\,dx \circledequals\\
+	\begin{tikzpicture}[scale=2]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-3.9,-0.9) grid (3.9,3.9);
+		
+		% Оси координат
+		\draw[thick,->] (-3.9,0) -- (3.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-0.9) -- (0,3.5) node[anchor=south east] {y};
+		
+		% Графики
+		\draw[thick, blue] (3,0) arc (0:180:3cm);
+		\draw[thick, blue] (-3,0) -- (3,0);
+		
+		\fill[black] (-3,0) circle (0.05cm) node[anchor=north] {-R};
+		\fill[black] (3,0) circle (0.05cm) node[anchor=north] {R};
+		
+		\fill[black] (-3,0) circle (0.05cm) node[anchor=north] {-R};
+		\fill[black] (3,0) circle (0.05cm) node[anchor=north] {R};
+		
+		% Точки
+		\fill[black] (0,{sqrt(2)}) circle (0.05cm) node[anchor=north west] {$\sqrt{2}i$};
+		\fill[black] (0,{sqrt(3)}) circle (0.05cm) node[anchor=south east] {$\sqrt{3}i$};
+	\end{tikzpicture}\\
+	\\
+	x^4 + 5x + 6 = 0|\,\, t = x^2\\
+	t^2 + 5t + 6 = 0\\
+	D = 25 - 24 = 1\\
+	t_1 = \frac{-5 - 1}{2} = -3\\
+	t_2 = \frac{-5 + 1}{2} = -2\\
+	z_1 = \sqrt{3}i \in \{ z: \Imag z > 0 \} - \text{и.о.т.о.х.}\\
+	z_2 = -\sqrt{3}i \notin \{ z: \Imag z > 0 \}\\
+	z_3 = \sqrt{2}i \in \{ z: \Imag z > 0 \} - \text{и.о.т.о.х.}\\
+	z_4 = -\sqrt{2}i \notin \{ z: \Imag z > 0 \}\\
+	\circledequals 2\pi i \left( \Res_{z = \sqrt{2}i} \frac{z^2 + 5}{z^4 + 5z + 6} + \Res_{z = \sqrt{3}i} \frac{z^2 + 5}{z^4 + 5z + 6} \right) \circledequals\\
+	\lim\limits_{z \rightarrow \sqrt{2}i} \frac{z^2 + 5}{z^4 + 5z + 6} = \infty \Rightarrow z = \sqrt{2}i - \text{полюс}\\
+	\lim\limits_{z \rightarrow \sqrt{2}i} \frac{z^2 + 5}{z^4 + 5z + 6} (z - \sqrt{2}i)^n =\\
+	\lim\limits_{z \rightarrow \sqrt{2}i} \frac{z^2 + 5}{(z - \sqrt{3}i) (z + \sqrt{3}i) (z - \sqrt{2}i) (z + \sqrt{2}i)} (z - \sqrt{2}i)^n =\\
+	\lim\limits_{z \rightarrow \sqrt{2}i} \frac{z^2 + 5}{(z - \sqrt{3}i) (z + \sqrt{3}i) (z + \sqrt{2}i)} (z - \sqrt{2}i)^{n - 1} = \begin{cases}
+		\displaystyle \frac{3}{2\sqrt{2}i}, n = 1\\
+		\displaystyle 0, n > 1\\
+	\end{cases} \Rightarrow \\
+	z = \sqrt{2}i - \text{полюс 1-го порядка}\\
+	\lim\limits_{z \rightarrow \sqrt{3}i} \frac{z^2 + 5}{z^4 + 5z + 6} = \infty \Rightarrow z = \sqrt{3}i - \text{полюс}\\
+	\lim\limits_{z \rightarrow \sqrt{3}i} \frac{z^2 + 5}{z^4 + 5z + 6} (z - \sqrt{3}i)^n =\\
+	\lim\limits_{z \rightarrow \sqrt{3}i} \frac{z^2 + 5}{(z - \sqrt{3}i) (z + \sqrt{3}i) (z - \sqrt{2}i) (z + \sqrt{2}i)} (z - \sqrt{3}i)^n =\\
+	\lim\limits_{z \rightarrow \sqrt{3}i} \frac{z^2 + 5}{(z + \sqrt{3}i) (z - \sqrt{2}i) (z + \sqrt{2}i)} (z - \sqrt{3}i)^{n - 1} = \begin{cases}
+		\displaystyle -\frac{1}{\sqrt{3}i}, n = 1\\
+		\displaystyle 0, n > 1\\
+	\end{cases} \Rightarrow \\
+	z = \sqrt{3}i - \text{полюс 1-го порядка}\\
+	\circledequals 2\pi i \left( \lim\limits_{z \rightarrow \sqrt{2}i} \frac{z^2 + 5}{z^4 + 5z + 6} (z - \sqrt{2}i) \lim\limits_{z \rightarrow \sqrt{3}i} \frac{z^2 + 5}{z^4 + 5z + 6} (z - \sqrt{3}i) \right) =\\
+	\frac{6\pi i}{2\sqrt{2}i} - \frac{2\pi i}{\sqrt{3}i} = \frac{3\pi}{\sqrt{2}} - \frac{2\pi}{\sqrt{3}} = \frac{\pi(3\sqrt{3} - 2\sqrt{2})}{\sqrt{6}}
+	$
+	
+	\section{Вычислить интеграл:}
+	
+	$
+	\displaystyle \int_{-\infty}^{+\infty} \frac{x\sin 2x - \sin x}{(x^2 + 4)^2}\,dx = \Imag \int_{-\infty}^{+\infty} \frac{xe^{2ix} - e^{ix}}{(x^2 + 4)^2}\,dx \circledequals\\
+	\begin{tikzpicture}[scale=2]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-3.9,-0.9) grid (3.9,3.9);
+		
+		% Оси координат
+		\draw[thick,->] (-3.9,0) -- (3.5,0) node[anchor=north west] {x};
+		\draw[thick,->] (0,-0.9) -- (0,3.5) node[anchor=south east] {y};
+		
+		% Графики
+		\draw[thick, blue] (3,0) arc (0:180:3cm);
+		\draw[thick, blue] (-3,0) -- (3,0);
+		
+		\fill[black] (-3,0) circle (0.05cm) node[anchor=north] {-R};
+		\fill[black] (3,0) circle (0.05cm) node[anchor=north] {R};
+		
+		\fill[black] (-3,0) circle (0.05cm) node[anchor=north] {-R};
+		\fill[black] (3,0) circle (0.05cm) node[anchor=north] {R};
+		
+		% Точки
+		\fill[black] (0,2) circle (0.05cm) node[anchor=north west] {2i};
+	\end{tikzpicture}\\
+	x^2 + 4 = 0\\
+	x = -2i \notin \{ z: \Imag z > 0 \}\\
+	x = 2i \in \{ z: \Imag z > 0 \}\\ - \text{и.о.т.о.х.}\\
+	\circledequals \Imag \left( 2\pi i \Res_{z = 2i} \frac{ze^{2iz} - e^{iz}}{(z^2 + 4)^2} \right) \circledequals\\
+	\lim\limits_{z \rightarrow 2i}  \frac{ze^{2iz} - e^{iz}}{(z^2 + 4)^2} = \infty \Rightarrow z = 2i - \text{полюс}\\
+	\lim\limits_{z \rightarrow 2i}  \frac{ze^{2iz} - e^{iz}}{(z^2 + 4)^2} (z - 2i)^n = \lim\limits_{z \rightarrow 2i}  \frac{ze^{2iz} - e^{iz}}{(z - 2i)^2 (z + 2i)^2} (z - 2i)^n =\\
+	\lim\limits_{z \rightarrow 2i}  \frac{ze^{2iz} - e^{iz}}{(z + 2i)^2} (z - 2i)^{n - 2} = \begin{cases}
+		\displaystyle -\frac{2ie^{-4} - e^{-2}}{-16}, n = 2\\
+		\displaystyle 0, n > 2\\
+		\displaystyle \infty, n = 1\\
+	\end{cases} \Rightarrow z = 2i - \text{полюс 2-го}\\
+	\text{порядка}\\
+	\circledequals \Imag \left( 2\pi i \lim\limits_{z \rightarrow 2i} \left( \frac{ze^{2iz} - e^{iz}}{(z^2 + 4)^2} (z - 2i)^2 \right)' \right) = \Imag \left( 2\pi i \lim\limits_{z \rightarrow 2i} \left( \frac{ze^{2iz} - e^{iz}}{(z + 2i)^2} \right)' \right) = \Imag \left( 2\pi i \lim\limits_{z \rightarrow 2i} \frac{(z2ie^{2iz} + e^{2iz} - ie^{iz}) (z + 2i)^2 - (ze^{2iz} - e^{iz}) 2 (z + 2i)}{(z + 2i)^4} \right) =\\
+	\Imag \left( 2\pi i \lim\limits_{z \rightarrow 2i} \frac{(z2ie^{2iz} + e^{2iz} - ie^{iz}) (z + 2i) - 2ze^{2iz} + 2e^{iz}}{(z + 2i)^3} \right) =\\
+	\Imag \left( 2\pi i \frac{((-4 + 1)e^{-4} - ie^{-2}) 4i - 4ie^{-4} + 2e^{-2}}{-64i} \right) =\\
+	\Imag \left( \pi \frac{(-3e^{-4} - ie^{-2}) 2i - 2ie^{-4} + e^{-2}}{-16} \right) = \Imag \left( \pi \frac{-6ie^{-4} + 2e^{-2} - 2ie^{-4} + e^{-2}}{-16} \right) = \Imag \left( \pi \frac{-8ie^{-4} + 3e^{-2}}{-16} \right) = \frac{-8\pi e^{-4}}{-16} = \frac{\pi}{2e^4}
+	$
+	
+	\section{Найти оригинал по заданному изображению:}
+	
+	$
+	\displaystyle \frac{5p}{(p + 2)(p^2 - 2p + 2)} = \frac{A}{p + 2} + \frac{Bp + C}{p^2 + 2p + 2} =\\
+	\frac{Ap^2 - 2Ap + 2A + Bp^2 + 2Bp + Cp + 2C}{(p + 2)(p^2 - 2p + 2)} \circledequals\\
+	p^2: 0 = A + B\\
+	p^1: 5 = -2A + 2B + C\\
+	p^0: 0 = 2A + 2C\\
+	A = -1\,\, B = 1\,\, C = 1\\
+	\circledequals \frac{-1}{p + 2} + \frac{p + 1}{p^2 - 2p + 2} = \frac{-1}{p + 2} + \frac{p + 1}{(p - 1)^2 + 1} =\\
+	\frac{-1}{p + 2} + \frac{p - 1}{(p - 1)^2 + 1} + 2\frac{1}{(p - 1)^2 + 1}  \fallingdotseq -e^{-2t} + e^t \cos t + 2e^t \sin t
+	$
+	
+	\section{Найти решения дифференциального уравнения, удовлетворяющее условиям:}
+	
+	$
+	\displaystyle y'' + y' = \frac{1}{1 + e^t}\\
+	y' = z;\,\,\, z = z(t)\\
+	z' + z = \frac{1}{1 + e^t}\\
+	z = u(t)v(t)\\
+	u'v + uv' + uv = \frac{1}{1 + e^t}\\
+	u'v + u(v' - v) = \frac{1}{1 + e^t}\\
+	v' = -v\\
+	\frac{dv}{v} = -dt\\
+	\ln|v| = -t\\
+	v = e^-t\\
+	u'e^t = \frac{1}{1 + e^t}\\
+	u' = \frac{1}{e^t(1 + e^t)}\\
+	u = \int \frac{dt}{e^t(1 + e^t)} = \left| \begin{array}{cc}
+		\zeta = e^t \,& \displaystyle dt = \frac{d\zeta}{\zeta}\\
+		d\zeta = e^t dt
+	\end{array} \right| = \int \frac{d\zeta}{\zeta^2 (1 + \zeta)} \circledequals\\
+	\frac{1}{\zeta^2 (1 + \zeta)} = \frac{A}{\zeta^2} + \frac{B}{\zeta} + \frac{C}{1 + \zeta} = \frac{A + A\zeta + B\zeta + B\zeta^2 + C\zeta^2}{\zeta^2 (1 + \zeta)}\\
+	\zeta^2: 0 = B + C\\
+	\zeta^1: 0 = A + B\\
+	\zeta^0: 1 = A\\
+	A = 1\,\, B = -1\,\, C = 1\\
+	\circledequals \int \left( \frac{1}{\zeta^2} - \frac{1}{\zeta} + \frac{1}{1 + \zeta} \right)\, d\zeta = -\frac{1}{\zeta} - \ln|\zeta| + \ln|1 + \zeta| + c_1 =\\
+	-\frac{1}{e^t} + \ln\left| \frac{1 + e^t}{e^t} \right| + c_1\\
+	z = -\frac{1}{e^{2t}} + \frac{1}{e^t} \ln\left| \frac{1 + e^t}{e^t} \right| + \frac{c_1}{e^t}\\
+	y' = -\frac{1}{e^{2t}} + \frac{1}{e^t} \ln\left| \frac{1 + e^t}{e^t} \right| + \frac{c_1}{e^t}\\
+	y = \int \left( -\frac{1}{e^{2t}} + \frac{1}{e^t} \ln\left| \frac{1 + e^t}{e^t} \right| + \frac{c_1}{e^t} \right)\, dt = \frac{2}{e^{2t}} - \frac{c_1}{e^t} + \int \frac{1}{e^t} \ln\left| \frac{1 + e^t}{e^t} \right|\, dt = \left| \begin{array}{cc}
+		\displaystyle u = \ln\left| \frac{1 + e^t}{e^t} \right| \,& \displaystyle du = \frac{e^t}{1 + e^t} \cdot \frac{e^{2t} - e^t - e^{2t}}{e^{2t}} dt = -\frac{dt}{1 + e^t}\\
+		\displaystyle dv = \frac{dt}{e^t} \,& \displaystyle v = -\frac{1}{e^t}
+	\end{array} \right| =\\
+	\frac{2}{e^{2t}} - \frac{c_1}{e^t} - \frac{1}{e^t} \ln\left| \frac{1 + e^t}{e^t} \right| - \int \frac{dt}{e^t (1 + e^t)} = \left| \begin{array}{cc}
+		z = e^t \,& \displaystyle dt = \frac{dz}{z}\\
+		dz = e^t dt
+	\end{array} \right| =\\
+	\frac{2}{e^{2t}} - \frac{c_1}{e^t} - \frac{1}{e^t} \ln\left| \frac{1 + e^t}{e^t} \right| - \int \frac{dz}{z^2 (1 + z)} =\\
+	\frac{2}{e^{2t}} - \frac{c_1}{e^t} - \frac{1}{e^t} \ln\left| \frac{1 + e^t}{e^t} \right| - \int \left( \frac{1}{z^2} - \frac{1}{z} + \frac{1}{1 + z} \right)\, dz =\\
+	\frac{2}{e^{2t}} - \frac{c_1}{e^t} - \frac{1}{e^t} \ln\left| \frac{1 + e^t}{e^t} \right| + \frac{1}{2e^t} + \ln|e^t| - \ln|1 + e^t| + c_2 =\\
+	\frac{2}{e^{2t}} + \frac{1 - 2c_1}{2e^t} - \frac{1}{e^t} \ln\left| \frac{1 + e^t}{e^t} \right| + \ln\left| \frac{e^t}{1 + e^t} \right| + c_2
+	$
+	
+	\section{Операционным методом решить задачу Коши:}
+	
+	$
+	\displaystyle \begin{cases}
+		\displaystyle y'' + 4y' + 4y = t^3 e^{2t}\\
+		\displaystyle y(0) = 1\\
+		\displaystyle y'(0) = 2\\
+	\end{cases}\\
+	p^2 \overline{y}(p) - py(0) - y'(0) + 4(p\overline{y}(p) - y(0)) + 4\overline{y}(p) = \frac{6}{(p - 2)^4}\\
+	p^2 \overline{y}(p) - p - 2 + 4p\overline{y}(p) - 4 + 4\overline{y}(p) = \frac{6}{(p - 2)^4}\\
+	\overline{y}(p)(p^2 + 4p + 4) = \frac{6}{(p - 2)^4} + p + 2 + 4\\
+	\overline{y}(p)(p + 2)^2 = \frac{6}{(p - 2)^4} + p + 2 + 4\\
+	\overline{y}(p) = \frac{6}{(p - 2)^4 (p + 2)^2} + \frac{1}{p + 2} + \frac{4}{(p + 2)^2}\\
+	\frac{6}{(p - 2)^4 (p + 2)^2} \fallingdotseq (t^3 e^2t \ast te^{-2t}) = \int_{0}^{t} \tau^3 e^{2\tau} (t - \tau) e^{-2(t - \tau)}\, d\tau =\\
+	\int_{0}^{t} \tau^3 (t - \tau) e^{4\tau} e^{-2t}\, d\tau = e^{-2t} \int_{0}^{t} \tau^3 (t - \tau) e^{4\tau}\, d\tau = e^{-2t} \int_{0}^{t} (\tau^3 te^{4\tau} - \tau^4 e^{4\tau})\, d\tau \circledequals\\
+	\int_{0}^{t} \tau^4 e^{4\tau}\, d\tau = \left| \begin{array}{cc}
+		u = \tau^4 \,& du = 4\tau^3 d\tau\\
+		dv = e^{4\tau} \,& \displaystyle v = \frac{1}{4} e^{4\tau}
+	\end{array} \right| = \frac{t^4 e^{4t}}{4} - \int_{0}^{t} \tau^3 e^{4\tau}\, d\tau =\\
+	\left| \begin{array}{cc}
+		u = \tau^3 \,& du = 3\tau^2 d\tau\\
+		dv = e^{4\tau} \,& \displaystyle v = \frac{1}{4} e^{4\tau}
+	\end{array} \right| = \frac{t^4 e^{4t}}{4} - \frac{t^3 e^{4t}}{4} + \frac{3}{4} \int_{0}^{t} \tau^2 e^{4\tau}\, d\tau = \left| \begin{array}{cc}
+		u = \tau^2 \,& du = 2\tau d\tau\\
+		dv = e^{4\tau} \,& \displaystyle v = \frac{1}{4} e^{4\tau}
+	\end{array} \right| = \frac{t^4 e^{4t}}{4} - \frac{t^3 e^{4t}}{4} + \frac{3t^2 e^{4t}}{16} - \frac{3}{8} \int_{0}^{t} \tau e^{4\tau}\, d\tau = \left| \begin{array}{cc}
+		u = \tau \,& du = d\tau\\
+		dv = e^{4\tau} \,& \displaystyle v = \frac{1}{4} e^{4\tau}
+	\end{array} \right| =\\
+	\frac{t^4 e^{4t}}{4} - \frac{t^3 e^{4t}}{4} + \frac{3t^2 e^{4t}}{16} - \frac{3te^{4t}}{32} + \frac{3}{32} \int_{0}^{t} e^{4\tau}\, d\tau =\\
+	\frac{t^4 e^{4t}}{4} - \frac{t^3 e^{4t}}{4} + \frac{3t^2 e^{4t}}{16} - \frac{3te^{4t}}{32} + \frac{3e^{4t}}{128} - \frac{3}{128}\\
+	\int_{0}^{t} \tau^3 e^{4\tau}\, d\tau = \frac{t^3 e^{4t}}{4} - \frac{3t^2 e^{4t}}{16} + \frac{3te^{4t}}{32} - \frac{3e^{4t}}{128} + \frac{3}{128}\\
+	\circledequals te^{-2t} \left( \frac{t^3 e^{4t}}{4} - \frac{3t^2 e^{4t}}{16} + \frac{3te^{4t}}{32} - \frac{3e^{4t}}{128} + \frac{3}{128} \right)\\
+	- e^{-2t} \left( \frac{t^4 e^{4t}}{4} - \frac{t^3 e^{4t}}{4} + \frac{3t^2 e^{4t}}{16} - \frac{3te^{4t}}{32} + \frac{3e^{4t}}{128} - \frac{3}{128} \right) =\\
+	\frac{t^4 e^{2t}}{4} - \frac{3t^3 e^{2t}}{16} + \frac{3t^2 e^{2t}}{32} - \frac{3te^{2t}}{128} + \frac{3t}{128e^{2t}} - \frac{t^4 e^{2t}}{4} + \frac{t^3 e^{2t}}{4} - \frac{3t^2 e^{2t}}{16} + \frac{3te^{2t}}{32} - \frac{3e^{2t}}{128} + \frac{3}{128e^{2t}} =\\
+	\frac{t^3 e^{2t}}{16} - \frac{3t^2 e^{2t}}{32} + \frac{9te^{2t}}{128} - \frac{3e^{2t}}{128} + \frac{3}{128e^{2t}}(t + 1)\\
+	y = \frac{t^3 e^{2t}}{16} - \frac{3t^2 e^{2t}}{32} + \frac{9te^{2t}}{128} - \frac{3e^{2t}}{128} + \frac{3}{128e^{2t}}(t + 1) + e^{-2t} + 4te^{-2t}
+	$
+	
+	\section{Найти решение системы дифференциальных уравнений, удовлетворяющее заданному начальному условию:}
+	
+	$
+	\displaystyle \begin{cases}
+		\displaystyle x' = 3x + 3y\\
+		\displaystyle y' = \frac{5}{2}x - y + 2\\
+		\displaystyle x(0) = 0\\
+		\displaystyle y(0) = 1\\
+	\end{cases}\\
+	\begin{cases}
+		\displaystyle p\overline{x}(p) = 3\overline{x}(p) + 2\overline{y}(p)\\
+		\displaystyle p\overline{y}(p) - 1 = \frac{5}{2}\overline{x}(p) - \overline{y}(p) + \frac{2}{p}\\
+	\end{cases} \Leftrightarrow \begin{cases}
+		\displaystyle \overline{x}(p)(p - 3) = 2\overline{y}(p)\\
+		\displaystyle \overline{y}(p)(p + 1) = \frac{5}{2}\overline{x}(p) + \frac{2}{p} + 1\\
+	\end{cases} \Leftrightarrow \begin{cases}
+		\displaystyle \overline{y}(p) = \frac{\overline{x}(p)(p - 3)}{2}\\
+		\displaystyle \overline{x}(p) \frac{(p - 3)(p + 1) - 5}{2} = \frac{2 + p}{p}\\
+	\end{cases} \Leftrightarrow \begin{cases}
+		\displaystyle \overline{y}(p) = \frac{\overline{x}(p)(p - 3)}{2}\\
+		\displaystyle \overline{x}(p) (p^2 + p - 3p - 3 - 5) = \frac{4 + 2p}{p}\\
+	\end{cases} \Leftrightarrow \begin{cases}
+		\displaystyle \overline{y}(p) = \frac{(2 + p) (p - 3)}{p (p^2 - 2p - 8)}\\
+		\displaystyle \overline{x}(p) = \frac{2(2 + p)}{p (p^2 - 2p - 8)}\\
+	\end{cases} \circledLeftrightarrow\\
+	p^2 - 2p - 8 = 0\\
+	D = 4 + 32 = 36\\
+	p_1 = \frac{2 - 6}{2} = -2\\
+	p_2 = \frac{2 + 6}{2} = 4\\
+	\circledLeftrightarrow \begin{cases}
+		\displaystyle \overline{x}(p) = \frac{2(2 + p)}{p (p + 2) (p - 4)}\\
+		\displaystyle \overline{y}(p) = \frac{(2 + p) (p - 3)}{p (p + 2) (p - 4)}\\
+	\end{cases} \Leftrightarrow \begin{cases}
+		\displaystyle \overline{x}(p) = \frac{2}{p (p - 4)}\\
+		\displaystyle \overline{y}(p) = \frac{p - 3}{p (p - 4)}\\
+	\end{cases} \circledLeftrightarrow\\
+	\frac{2}{p(p - 4)} = \frac{A}{p} + \frac{B}{p - 4} = \frac{Ap - 4A + Bp}{p(p - 4)}\\
+	p^1: 0 = A + B\\
+	p^0: 2 = -4A\\
+	A = -\frac{1}{2} \,\,\, B = \frac{1}{2}\\
+	\frac{p - 3}{p(p - 4)} = \frac{A}{p} + \frac{B}{p - 4} = \frac{Ap - 4A + Bp}{p(p - 4)}\\
+	p^1: 1 = A + B\\
+	p^0: -3 = -4A\\
+	A = \frac{3}{4} \,\,\, B = \frac{1}{4}\\
+	\circledLeftrightarrow \begin{cases}
+		\displaystyle \overline{x}(p) = -\frac{1}{2} \cdot \frac{1}{p} + \frac{1}{2} \cdot \frac{1}{p - 4}\\
+		\displaystyle \overline{y}(p) = \frac{3}{4} \cdot \frac{1}{p} + \frac{1}{4} \cdot \frac{1}{p - 4}\\
+	\end{cases}\\
+	\begin{cases}
+		\displaystyle x(t) = -\frac{1}{2} + \frac{1}{2} e^{4t}\\
+		\displaystyle y(t) = \frac{3}{4} + \frac{1}{4} e^{4t}\\
+	\end{cases}
+	$
+
+\end{document}
