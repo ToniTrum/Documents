@@ -1,7 +1,122 @@
-\documentclass{article}
+\documentclass[a4paper,14pt]{extarticle}
+
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\onehalfspacing
+
+\newcommand{\circledequals}{\mathbin{\tikz \node[draw,circle,inner sep=1pt] {$=$};}}
 
 \begin{document}
-Привет, мир! Проверка LaTeX в VS Code под Arch.
+	% Титульный лист
+	\begin{titlepage}
+		\centering
+		
+		\includegraphics{FEFU-logo}\\
+		МИНИСТЕРСТВО НАУКИ И ВЫСШЕГО ОБРАЗОВАНИЯ\\РОССИЙСКОЙ ФЕДЕРАЦИИ\\
+		Федеральное государственное автономное образовательное учреждение высшего образования\\
+		\textbf{«Дальневосточный федеральный университет»}\\
+		\textbf{(ДВФУ)}
+		\vspace*{0.3cm}
+		\rule{\linewidth}{0.7mm}
+		\vspace*{0.3cm}
+		
+		\textbf{ИНСТИТУТ МАТЕМАТИКИ И КОМПЬЮТЕРНЫХ ТЕХНОЛОГИЙ}\\
+		\vspace*{0.3cm}
+		\textbf{Кафедра математического и компьютерного моделирования}\\
+		\vspace*{0.9cm}
+		
+		Кулахсзян Сергей Грайрович\\
+		\textbf{ИНДИВИДУАЛЬНОЕ ДОМАШНЕЕ ЗАДАНИЕ №1 ДИФФЕРЕНЦИАЛЬНЫЕ УРАВНЕНИЯ, ВАРИАНТ 7}\\
+		\vspace*{0.3cm}
+		
+		Направление подготовки 02.03.01сцт Сквозные цифровые технологии,\\ бакалавриатская программа «Математика и компьютерные науки»\\ Очной (заочной) формы обучения\\
+		\vspace{1cm}
+		
+		\raggedleft
+		\textbf{Студент группы Б9123-02.03.01сцт2}\\
+		\rule{4.5cm}{0.3mm} С. Г. Кулахсзян\\
+		\vspace{1cm}
+		
+		\textbf{Руководитель проекта}\\
+		\rule{4.2cm}{0.3mm} Е. В. Амосова\\
+		
+		\vfill
+		\centering
+		Владивосток\\
+		2025
+	\end{titlepage}
+	
+	% Оглавление
+	\tableofcontents
+	\newpage
+
+    \section{Найти собственные функции оператора, отвечающего дифференциальному уравнению}
+
+    $\displaystyle \left\{ \begin{array}{lll}
+        y'' -5y = \lambda y,\,\, x \in (0; 0,9) \\ 
+        y(0) = 0 \\
+        y'(0,9) = 0
+    \end{array} \right. \\
+    \\
+    k^2 - 5 - \lambda = 0 \\
+    k^2 = 5 + \lambda \\
+    k^2 = -(\lambda - 5) \\
+    k_{1,2} = \pm \sqrt{-\lambda - 5} i \\
+    y_1(x) = \cos(\sqrt{-\lambda - 5} x) \\
+    y_2(x) = \sin(\sqrt{-\lambda - 5} x) \\
+    y = c_1 \cos(\sqrt{-\lambda - 5} x) + c_2 \sin(\sqrt{-\lambda - 5} x) \\
+    \\
+    \left\{ \begin{array}{ll}
+        y(0) = c_1 = 0 \\
+        y'(0,9) = c_2 \sqrt{-\lambda - 5} \cos(\sqrt{-\lambda - 5} * 0,9) = 0
+    \end{array} \right. \\
+    \\
+    \sqsupset c_2 \neq 0: \\
+    \cos(\sqrt{-\lambda - 5} * 0,9) = 0 \\
+    \sqrt{-\lambda_k - 5} * 0,9 = \frac{\pi}{2} + \pi k \\
+    \sqrt{-\lambda_k - 5} = \frac{5 \pi + 10 \pi k}{9} \\
+    y_k = c_2 \sin \left( \frac{5 \pi + 10 \pi k}{9} x \right) \\
+    \sqsubset c_2 = 1: \\
+    y_k = \sin \left( \frac{5 \pi + 10 \pi k}{9} x \right) $
+
+    \section{Разложить функцию $\displaystyle f(x) = \left( x \cos\left( \frac{\pi x}{1,8} \right) \right)^2$ в ряд Фурье по собственным функциям $y_k, k = 0, 1, ...$. Построить графики функций и ряда Фурье, записанного для пяти гармоник}
+
+    $\displaystyle f(x) = \left( x \cos\left( \frac{\pi x}{1,8} \right) \right)^2 = \sum_{k = 0}^{\infty} c_k \sin \left( \frac{5 \pi + 10 \pi k}{9} x \right) \circledequals \\
+    c_k = \frac{\displaystyle \int_{0}^{0,9} \left( x \cos\left( \frac{\pi x}{1,8} \right) \right)^2 \sin \left( \frac{5 \pi + 10 \pi k}{9} x \right)\, dx}{\displaystyle \int_{0}^{0,9} \sin^2 \left( \frac{5 \pi + 10 \pi k}{9} x \right)\, dx} \circledequals \\
+    \int_{0}^{0,9} \left( x \cos\left( \frac{\pi x}{1,8} \right) \right)^2 \sin \left( \frac{5 \pi + 10 \pi k}{9} x \right)\, dx = \frac{729}{4} \left( \frac{4}{(5 \pi + 10 \pi k)^2} \left( (-1)^k * 0,1 - \right.\right. \\
+    \left. \frac{1}{5 \pi + 10 \pi k} \right) + \frac{2}{(15 \pi + 10 \pi k)^2} \left( (-1)^{k + 1} * 0,1 - \frac{1}{15 \pi + 10 \pi k} \right) + \\
+    \left. \frac{2}{(10 \pi k - 5 \pi)^2} \left( (-1)^{k + 1} * 0,1 - \frac{1}{10 \pi k - 5 \pi} \right) \right) \\
+    \int_{0}^{0,9} \sin^2 \left( \frac{5 \pi + 10 \pi k}{9} x \right)\, dx = \frac{9}{20} \\
+    \circledequals 810 \left( \frac{4}{(5 \pi + 10 \pi k)^2} \left( (-1)^k * 0,1 - \frac{1}{5 \pi + 10 \pi k} \right) + \right. \\
+    \frac{2}{(15 \pi + 10 \pi k)^2} \left( (-1)^{k + 1} * 0,1 - \frac{1}{15 \pi + 10 \pi k} \right) + \\ 
+    \left. \frac{2}{(10 \pi k - 5 \pi)^2} \left( (-1)^{k + 1} * 0,1 - \frac{1}{10 \pi k - 5 \pi} \right) \right) \\
+    \circledequals \sum_{k = 0}^{\infty} 810 \left( \frac{4}{(5 \pi + 10 \pi k)^2} \left( (-1)^k * 0,1 - \frac{1}{5 \pi + 10 \pi k} \right) + \right. \\
+    \frac{2}{(15 \pi + 10 \pi k)^2} \left( (-1)^{k + 1} * 0,1 - \frac{1}{15 \pi + 10 \pi k} \right) + \\ 
+    \left. \frac{2}{(10 \pi k - 5 \pi)^2} \left( (-1)^{k + 1} * 0,1 - \frac{1}{10 \pi k - 5 \pi} \right) \right) \sin \left( \frac{5 \pi + 10 \pi k}{9} x \right) $
+
+    \includegraphics[width=\textwidth]{graph.png} \\
+
+    \section{Проверить точность выполнения равенства Парсеваля для ряда Фурье, построенного в п.2. с точностью до $10^{-3}$.}
+
+    $\displaystyle \int_{0}^{0,9} f^2(x)\, dx = \sum_{k = 0}^{\infty} c_k^2 \\
+    \int_{0}^{0,9} f^2(x)\, dx = \int_{0}^{0,9} \left( x \cos \left( \frac{\pi x}{1,8} \right) \right)^4\, dx = \frac{354294 \pi^4 - 8857350 \pi^2 + 558013305}{8000000 \pi^4} \approx 0,003714 \\
+    c_0^2 \approx 0,005636 \\
+    c_1^2 \approx 0,001791 \\
+    c_2^2 \approx 0,000818 \\
+    c_3^2 \approx 4,5587 * 10^{-10} \\
+    c_4^2 \approx 8,64785 * 10^{-9} \\
+    c_5^2 \approx 1,97964 * 10^{-11} \\
+    \sum_{k = 0}^{5} c_k^2 \approx 0,005636 + 0,001791 + 0,000818 + 4,5587 * 10^{-10} + 8,64785 * 10^{-9} + 1,97964 * 10^{-11} \approx 0,00824801 \\
+    \left| \int_{0}^{0,9} f^2(x)\, dx - \sum_{k = 0}^{5} c_k^2 \right| > 10^{-3} $
+
 \end{document}
