@@ -1,0 +1,131 @@
+\documentclass[
+    border=2mm,
+    convert={ density=600 -alpha Remove, outext=.png }
+]{standalone}
+
+\usepackage[all]{genealogytree}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\begin{document}
+    \begin{genealogypicture}[
+        template=signpost,
+        timeflow=right,
+        box={
+            height=1.2cm,
+        },
+        edges={
+            foreground=blue,
+        }
+    ]
+        child{
+            g[male]{Ной}
+            child[subtree box={colback=blue!20}]{
+                g[male]{Сим}
+                c[male]{Елам}
+                c[male]{Ассур}
+                child{
+                    g[male]{Арфаксад}
+                    child{
+                        g[male]{Каинан}
+                        child{
+                            g[male]{Сала}
+                            child{
+                                g[male]{Евер}
+                                c[male]{Фалек}
+                                child{
+                                    g[male]{Иоктан}
+                                    c[male]{Алмодад}
+                                    c[male]{Шалеф}
+                                    c[male]{Хацармавеф}
+                                    c[male]{Иерах}
+                                    c[male]{Гадорам}
+                                    c[male]{Узал}
+                                    c[male]{Дикла}
+                                    c[male]{Овал}
+                                    c[male]{Авиамаил}
+                                    c[male]{Шева}
+                                    c[male]{Офир}
+                                    c[male]{Хавила}
+                                    c[male]{Иовав}
+                                }
+                            }
+                        }
+                    }
+                }
+                c[male]{Луд}
+                child{
+                    g[male]{Арам}
+                    c[male]{Уц}
+                    c[male]{Хул}
+                    c[male]{Гефер}
+                    c[male]{Маш}
+                }
+                c[male]{Каинан}
+            }
+            child[subtree box={colback=red!30}]{
+                g[male]{Хам}
+                child{
+                    g[male]{Хуш}
+                    c[male]{Сева}
+                    c[male]{Хавила}
+                    c[male]{Савта}
+                    child{
+                        g[male]{Раама}
+                        c[male]{Шева}
+                        c[male]{Дедан}
+                    }
+                    c[male]{Савтеха}
+                    c[male]{Нимрод}
+                }
+                child{
+                    g[male]{Мицраим}
+                    c[male]{Лудим}
+                    c[male]{Анамим}
+                    c[male]{Легавим}
+                    c[male]{Нафтухим}
+                    c[male]{Патрусим}
+                    c[male]{Каслухим}
+                }
+                c[male]{Фут}
+                child{
+                    g[male]{Ханаан}
+                    c[male]{Сидон}
+                    c[male]{Хет}
+                    c[male]{Иевусей}
+                    c[male]{Амморей}
+                    c[male]{Гергесей}
+                    c[male]{Евей}
+                    c[male]{Аркей}
+                    c[male]{Синей}
+                    c[male]{Арвадей}
+                    c[male]{Цемарей}
+                    c[male]{Хифамей}
+                }
+            }
+            child[subtree box={colback=green!30}]{
+                g[male]{Иафет}
+                child{
+                    g[male]{Гомер}
+                    c[male]{Аскеназ}
+                    c[male]{Рифат}
+                    c[male]{Фогарма}
+                }
+                c[male]{Магог}
+                c[male]{Мадай}
+                child{
+                    g[male]{Иаван}
+                    c[male]{Елиса}
+                    c[male]{Фарсис}
+                    c[male]{Киттим}
+                    c[male]{Доданим}
+                }
+                c[male]{Елиса}
+                c[male]{Фувал}
+                c[male]{Мешех}
+                c[male]{Фирас}
+            }
+        }
+    \end{genealogypicture}
+\end{document}
