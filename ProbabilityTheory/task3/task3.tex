@@ -1,0 +1,112 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\onehalfspacing
+
+\newcommand{\circledequals}{\mathbin{\tikz \node[draw,circle,inner sep=1pt] {$=$};}}
+
+\DeclareMathOperator{\Bernoulli}{Bernoulli}
+\DeclareMathOperator{\Bin}{Bin}
+\DeclareMathOperator{\cov}{cov}
+
+\begin{document}
+    \begin{center}
+        \textbf{Контрольный опрос}
+    \end{center}
+
+    $X$ -- число двоек, событие $A_2$ -- ученик получил 2, $k = 28$ -- число учеников без Вити.
+    Представим $X = X_O + X_B$, где $X_B$ -- индикатор, что Витя получил двойку, $X_O$ -- количество двоек остальных учеников.
+    Стоит заметить, что случайные величины $X_O$ и $X_B$ являются независимыми, так как оценка Вити не зависит от оценок остальных учеников.
+
+    Через функцию $P_B$ будут обозначаться вероятности событий, относящиеся к Вите, а через $P_O$ -- к остальным ученикам.
+    
+    Вероятность того, что Витя получит 2 равна:\\
+    $\displaystyle p_{2B}= P_B(H)P_B(A_2|H) = 0.3 \cdot \frac{1}{3} = 0.1$,\\
+    где $H$ -- событие, что Витя сдержался: $P(H) = 1 - 0.7 = 0.3$
+
+    Вероятность того, что другие ученики получили 2 равна:\\
+    $p_{2O} = P_O(A_2) = 0.25$
+
+    Таким образом случайные величины имеют распределения:\\
+    $X_O \sim \Bin(28; 0.25),\, X_B \sim \Bernoulli(0.1)$
+
+    Тогда дисперсия случайной величины $X$ равна:\\
+    $D(X) = D(X_O) + D(X_B) = kp_{2O}(1 - p_{2O}) + p_{2B}(1 - p_{2B}) = 28 \cdot 0.25 \cdot 0.75 + 0.1 \cdot 0.9 = 5.34$
+
+    $Y$ -- число пятёрок, событие $A_5$ -- ученик получил 5.
+    Представим $Y = Y_O + Y_B$, где $Y_B$ -- индикатор, что Витя получил пятёрку, $Y_O$ -- количество пятёрок остальных учеников.
+    Стоит заметить, что случайные величины $Y_O$ и $Y_B$ являются независимыми, так как оценка Вити не зависит от оценок остальных учеников.
+
+    Вероятность того, что Витя получит 5 равна:\\
+    $p_{5B}= P_B(H)P_B(A_5|H) = 0.3 \cdot 0 = 0$
+
+    Вероятность того, что другие ученики получили 5 равна:\\
+    $p_{5O} = P_O(A_5) = 0.25$
+
+    Таким образом случайные величины имеют распределения:\\
+    $Y_O \sim \Bin(28; 0.25),\, Y_B \sim \Bernoulli(0)$
+
+    Тогда дисперсия случайной величины $Y$ равна:\\
+    $D(Y) = D(Y_O) + D(Y_B) = kp_{5O}(1 - p_{5O}) + p_{5B}(1 - p_{5B}) = 28 \cdot 0.25 \cdot 0.75 + 0 \cdot 1 = 5.25$
+
+    Осталось вычислить ковариацию:\\
+    $\displaystyle
+    \cov(X, Y) = E((X - E(X))(Y - E(Y))) \circledequals\\
+    E(X) = E(X_O) + E(X_B) = kp_{2O} + p_{2B} = 28 \cdot 0.25 + 0.1 = 7.1\\
+    E(Y) = E(Y_O) + E(Y_B) = kp_{5O} + p_{5B} = 28 \cdot 0.25 + 0 = 7\\
+    \circledequals E((X - 7.1)(Y - 7)) = E(XY - 7X - 7.1Y + 49.7) =
+    E(XY) - 7E(X) - 7.1E(Y) + 49.7 \circledequals\\
+    E(XY) = E((X_O + X_B)(Y_O + Y_B)) = E(X_O Y_O + X_O Y_B + X_B Y_O + X_B Y_B) =
+    E(X_O Y_O) + E(X_O Y_B) + E(X_B Y_O) + E(X_B Y_B) \circledequals\\
+    E(X_O Y_O) = E\left( \sum_{i = 1}^{28} X_{Oi} \cdot \sum_{j = 1}^{28} Y_{Oj} \right) = \sum_{i = 1}^{28} \sum_{j = 1}^{28} E(X_{Oi} Y_{Oj}) \circledequals\\
+    $\\
+    Тут $X_{Oi}$ -- индикатор, что $i$-й ученик получил 2, $Y_{Oj}$ -- индикатор, что $j$-й ученик получил 5.
+
+    Разные ученики могут получать какие угодно оценки, однако один и тот же ученик не может получить и 2, и 5. Тогда вероятность произведения $X_{Oi} Y_{Oj}$ имеет формулу:\\
+    $
+    P_O(X_{Oi} Y_{Oj} = 1) = \begin{cases}
+        0, & i = j\\
+        P_O(X_{Oi} = 1; Y_{Oj} = 1), & i \neq j\\
+    \end{cases}
+    $
+
+    Построим ряд распределения для $X_{Oi} Y_{Oj}$:\\
+    \begin{tabular}{|c|c|c|}
+        \hline
+        & \multicolumn{2}{|c|}{$X_{Oi}$} \\ \hline
+        $Y_{Oj}$ & $x_{oj1} = 0$ & $x_{oj2} = 1$ \\ \hline
+        $y_{oj1} = 0$ & $0.75 \cdot 0.75 = 0.5625$ & $0.25 \cdot 0.75 = 0.1875$ \\ \hline
+        $y_{oj2} = 1$ & $0.75 \cdot 0.25 = 0.1875$ & $0.25 \cdot 0.25 = 0.0625$ \\ \hline
+    \end{tabular}
+
+    Таким образом:\\
+    $P_O(X_{Oi} Y_{Oj} = 1) = \begin{cases}
+        0, & i = j\\
+        0.0625, & i \neq j\\
+    \end{cases}$\\
+    $X_{Oi} \sim \Bernoulli(0.25),\, Y_{Oj} \sim \Bernoulli(0.25) \Rightarrow \\X_{Oi} Y_{Oj} \sim \Bernoulli(P_O(X_{Oi} Y_{Oj} = 1))$
+
+    Таким образом математическое ожидание $X_{Oi} Y_{Oj}$ равно:\\
+    $E(X_{Oi} Y_{Oj}) = P_O(X_{Oi} Y_{Oj} = 1)$\\
+    $\displaystyle
+    \circledequals \sum_{i = 1}^{28} \sum_{j = 1}^{28} P_O(X_{Oi} Y_{Oj} = 1) = (28^2 - 28) \cdot 0.0625 = 47.25\\
+    E(X_O Y_B) = E(X_O) \cdot E(Y_B) = kp_{2O} \cdot p_{5B} = 28 \cdot 0.25 \cdot 0 = 0\\
+    E(X_B Y_O) = E(X_B) \cdot E(Y_O) = p_{2B} \cdot kp_{5O} = 0.1 \cdot 28 \cdot 0.25 = 0.7\\
+    E(X_B Y_B) = 0, \text{так как Витя не может получить одновременно 2 и 5}\\
+    \circledequals 47.25 + 0 + 0.7 + 0 = 47.95\\
+    \circledequals 47.95 - 7 \cdot 7.1 - 7.1 \cdot 7 + 49.7 = -1.75
+    $\\
+    Ответ: $D(X) = 5.34,\, D(Y) = 5.25,\, \cov(X, Y) = -1.75$
+
+\end{document}

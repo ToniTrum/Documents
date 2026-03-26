@@ -1,0 +1,49 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{setspace}
+
+\doublespacing
+
+\DeclareMathOperator{\Uniform}{U}
+
+\begin{document}
+    \begin{center}
+        \textbf{Функции случайных аргументов}
+    \end{center}
+
+    $\displaystyle
+    X \sim \Uniform(0; 1) \\
+    f_X(x) = I(x \in [0; 1])\\
+    F_X(x) \begin{cases}
+        0, & x < 0 \\
+        x, & x \in [0; 1] \\
+        1, & x > 1
+    \end{cases} \\
+    Y = \begin{cases}
+        1, & \displaystyle X \leq \frac{1}{3} \\
+        2, & \displaystyle X > \frac{1}{3}
+    \end{cases}\\
+    1) p_Y(y) = \begin{cases}
+        \displaystyle P\left( X \leq \frac{1}{3} \right), & y = 1 \\
+        \displaystyle P\left( X > \frac{1}{3} \right), & y = 2
+    \end{cases} = 
+    \begin{cases}
+        \displaystyle F_X\left( \frac{1}{3} \right), & y = 1 \\
+        \displaystyle 1 - P\left( X \leq \frac{1}3{} \right), & y = 2
+    \end{cases} = 
+    \begin{cases}
+        \displaystyle \frac{1}{3}, & y = 1 \\
+        \displaystyle \frac{2}{3}, & y = 2
+    \end{cases}\\
+    2.1) E(Y) = 1p_Y(1) + 2p_Y(2) = \frac{1}{3} + 2 \cdot \frac{2}{3} = \frac{5}{3}\\
+    2.2) E(Y) = E(g(X)) = \int_{\mathbf{R}} g(x) f_X(x) \,dx = \int_{-\infty}^{\textstyle \frac{1}{3}} 1 I(x \in [0; 1]) \,dx + \int_{\textstyle \frac{1}{3}}^{+\infty} 2 I(x \in [0; 1]) \,dx = 
+    \int_{0}^{\textstyle \frac{1}{3}} \,dx + \int_{\textstyle \frac{1}{3}}^{1} 2 \,dx = x|_{0}^{\textstyle \frac{1}{3}} + 2x|_{\textstyle \frac{1}{3}}^{1} = \frac{1}{3} + 2 \left( 1 - \frac{1}{3} \right) = \frac{5}{3}
+    $
+\end{document}

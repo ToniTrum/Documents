@@ -1,0 +1,157 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\doublespacing
+
+\newcommand{\circledeq}{\mathbin{\tikz \node[draw,circle,inner sep=1pt] {$=$};}}
+
+\DeclareMathOperator{\Cov}{Cov}
+
+\begin{document}
+    \begin{center}
+        \textbf{Система двух случайных величин}
+    \end{center}
+
+    $\displaystyle
+    f_{X, Y}(x, y) = \frac{1}{2} \sin(x + y) \cdot I\left( (x, y) \in \left[ 0; \frac{\pi}{2} \right]^2 \right) \\
+    1) F_{X, Y}(x, y) = \int_{-\infty}^{x} \int_{-\infty}^{y} f_{X, Y}(u, v) \,du dv = \\
+    \begin{cases}
+        0, & (x < 0) \lor (y < 0) \\
+        \displaystyle \int_{0}^{x} \int_{0}^{y} f_{X, Y}(u, v) \,du dv, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle \int_{0}^{\textstyle \frac{\pi}{2}} \int_{0}^{y} f_{X, Y}(u, v) \,du dv, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle \int_{0}^{\textstyle \frac{\pi}{2}} \int_{0}^{x} f_{X, Y}(u, v) \,du dv, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right) \\
+        \displaystyle 1, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right)
+    \end{cases} = \\
+    \begin{cases}
+        0, & (x < 0) \lor (y < 0) \\
+        \displaystyle \int_{0}^{x} \int_{0}^{y} \frac{1}{2} \sin(u + v) \,du dv, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle \int_{0}^{\textstyle \frac{\pi}{2}} \int_{0}^{y} \frac{1}{2} \sin(u + v) \,du dv, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle \int_{0}^{\textstyle \frac{\pi}{2}} \int_{0}^{x} \frac{1}{2} \sin(u + v) \,du dv, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right) \\
+        \displaystyle 1, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right)
+    \end{cases} = \\
+    \begin{cases}
+        0, & (x < 0) \lor (y < 0) \\
+        \displaystyle -\frac{1}{2} \int_{0}^{x} \cos(u + v) \Big|_{0}^{y} \,du, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle -\frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} \cos(u + v) \Big|_{0}^{y} \,du, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle -\frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} \cos(u + v) \Big|_{0}^{x} \,dv, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right) \\
+        \displaystyle 1, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right)
+    \end{cases} = \\
+    \begin{cases}
+        0, & (x < 0) \lor (y < 0) \\
+        \displaystyle -\frac{1}{2} \int_{0}^{x} (\cos(u + y) - \cos u) \,du, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle -\frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} (\cos(u + y) - \cos u) \,du, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle -\frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} (\cos(x + v) - \cos v) \,dv, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right) \\
+        \displaystyle 1, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right)
+    \end{cases} = \\
+    \begin{cases}
+        0, & (x < 0) \lor (y < 0) \\
+        \displaystyle -\frac{1}{2} (\sin(u + y) - \sin u) \Big|_{0}^{x}, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle -\frac{1}{2} (\sin(u + y) - \sin u) \Big|_{0}^{\textstyle \frac{\pi}{2}}, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle -\frac{1}{2} (\sin(x + v) - \sin v) \Big|_{0}^{\textstyle \frac{\pi}{2}}, & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right) \\
+        \displaystyle 1, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right)
+    \end{cases} = \\
+    \begin{cases}
+        0, & (x < 0) \lor (y < 0) \\
+        \displaystyle -\frac{1}{2} (\sin(x + y) - \sin y - \sin x), & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle -\frac{1}{2} \left( \sin \left( \frac{\pi}{2} + y \right) - \sin y - \sin \frac{\pi}{2} \right), & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle -\frac{1}{2} \left( \sin \left( x + \frac{\pi}{2} \right) - \sin \frac{\pi}{2} - \sin x \right), & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right) \\
+        \displaystyle 1, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right)
+    \end{cases} = \\
+    \begin{cases}
+        0, & (x < 0) \lor (y < 0) \\
+        \displaystyle \frac{1}{2} (\sin x + \sin y - \sin(x + y)), & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle \frac{1}{2} (1 + \sin y - \cos y), & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( 0 \leq y \leq \frac{\pi}{2} \right) \\
+        \displaystyle \frac{1}{2} (\sin x + 1 - \cos x), & \displaystyle \left( 0 \leq x \leq \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right) \\
+        \displaystyle 1, & \displaystyle \left( x > \frac{\pi}{2} \right) \land \left( y > \frac{\pi}{2} \right)
+    \end{cases} = \\
+    \frac{1}{2} (\sin x + \sin y - \sin(x + y)) \cdot I\left( (x, y) \in \left[ 0; \frac{\pi}{2} \right]^2 \right) + 
+    \frac{1}{2} (1 + \sin y - \cos y) \cdot I\left( (x, y) \in \left( \frac{\pi}{2}; +\infty \right) \times \left[ 0; \frac{\pi}{2} \right] \right) +
+    \frac{1}{2} (\sin x + 1 - \cos x) \cdot I\left( (x, y) \in \left[ 0; \frac{\pi}{2} \right] \times \left( \frac{\pi}{2}; +\infty \right) \right) +
+    I\left( (x, y) \in \left( \frac{\pi}{2}; +\infty \right)^2 \right) \\\\
+    2) f_X(x) = \int_{\mathbb{R}} f_{X, Y}(x, y) \,dy = 
+    \int_{-\infty}^{+\infty} \frac{1}{2} \sin(x + y) \cdot I\left( (x, y) \in \left[ 0; \frac{\pi}{2} \right]^2 \right) \,dy =
+    \frac{1}{2} \cdot I\left( x \in \left[ 0; \frac{\pi}{2} \right] \right) \int_{0}^{\textstyle \frac{\pi}{2}} \sin(x + y) \,dy =
+    -\frac{1}{2} \cos(x + y) \Big|_{0}^{\textstyle \frac{\pi}{2}} \cdot I\left( x \in \left[ 0; \frac{\pi}{2} \right] \right) =
+    -\frac{1}{2} \left( \cos \left( x + \frac{\pi}{2} \right) - \cos x \right) \cdot I\left( x \in \left[ 0; \frac{\pi}{2} \right] \right) =
+    \frac{1}{2} (\sin x + \cos x) \cdot I\left( x \in \left[ 0; \frac{\pi}{2} \right] \right) \\\\
+    3) f_{X|Y}(x|y) = \frac{f_{X, Y}(x, y)}{f_Y(y)} =
+    \frac{\displaystyle \frac{1}{2} \sin(x + y) \cdot I\left( (x, y) \in \left[ 0; \frac{\pi}{2} \right]^2 \right)}{\displaystyle \frac{1}{2} (\sin y + \cos y) \cdot I\left( y \in \left[ 0; \frac{\pi}{2} \right] \right)} =
+    \frac{\sin(x + y)}{(\sin y + \cos y)} \cdot I\left( (x, y) \in \left[ 0; \frac{\pi}{2} \right]^2 \right) \\\\
+    4) E(X) = \int_{\mathbb{R}} x f_X(x) \,dx = 
+    \int_{-\infty}^{+\infty} x \frac{\sin x + \cos x}{2} \cdot I\left( x \in \left[ 0; \frac{\pi}{2} \right] \right) \,dx =
+    \frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} x (\sin x + \cos x) \,dx =
+    \left| \begin{array}{ll}
+        u = x & du = dx \\
+        dv = (\sin x + \cos x) dx & v = \sin x - \cos x
+    \end{array} \right| =
+    \frac{1}{2} x (\sin x - \cos x) \Big|_{0}^{\textstyle \frac{\pi}{2}} - \frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} (\sin x - \cos x) \,dx =
+    \frac{1}{2} \cdot \frac{\pi}{2} - \frac{1}{2} (-\cos x - \sin x) \Big|_{0}^{\textstyle \frac{\pi}{2}} =
+    \frac{\pi}{4} + \frac{1}{2} -\frac{1}{2} = \frac{\pi}{4} \\
+    D(X) = E(X^2) - E^2(X) \circledeq \\
+    E(X^2) = \int_{\mathbb{R}} x^2 f_X(x) \,dx = 
+    \int_{-\infty}^{+\infty} x^2 \frac{\sin x + \cos x}{2} \cdot I\left( x \in \left[ 0; \frac{\pi}{2} \right] \right) \,dx =
+    \frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} x^2 (\sin x + \cos x) \,dx =
+    \left| \begin{array}{ll}
+        u = x^2 & du = 2x dx \\
+        dv = (\sin x + \cos x) dx & v = \sin x - \cos x
+    \end{array} \right| =
+    \frac{1}{2} x^2 (\sin x - \cos x) \Big|_{0}^{\textstyle \frac{\pi}{2}} - \int_{0}^{\textstyle \frac{\pi}{2}} x (\sin x - \cos x) \,dx =
+    \left| \begin{array}{ll}
+        u = x & du = dx \\
+        dv = (\sin x + \cos x) dx & v = \sin x - \cos x
+    \end{array} \right| =
+    \frac{\pi^2}{8} + x (\cos x + \sin x) \Big|_{0}^{\textstyle \frac{\pi}{2}} - \int_{0}^{\textstyle \frac{\pi}{2}} (\cos x + \sin x) \,dx =
+    \frac{\pi^2}{8} + \frac{\pi}{2} - (\sin x - \cos x) \Big|_{0}^{\textstyle \frac{\pi}{2}} =
+    \frac{\pi^2}{8} + \frac{\pi}{2} - 1 - 1 =
+    \frac{\pi^2}{8} + \frac{\pi}{2} - 2 \\
+    \circledeq \frac{\pi^2}{8} + \frac{\pi}{2} - 2 - \frac{\pi^2}{16} =
+    \frac{\pi^2}{16} + \frac{\pi}{2} - 2 \\\\
+    5) E(X|Y = y) = \int_{\mathbb{R}} x f_{X|Y}(x|y) \,dx =
+    \int_{-\infty}^{+\infty} x \frac{\sin(x + y)}{\sin y + \cos y} \cdot I\left( (x, y) \in \left[ 0; \frac{\pi}{2} \right]^2 \right) \,dx =
+    \frac{\displaystyle I\left( y \in \left[ 0; \frac{\pi}{2} \right] \right)}{\sin y + \cos y} \int_{0}^{\textstyle \frac{\pi}{2}} x \sin(x + y) \,dx =
+    \left| \begin{array}{ll}
+        u = x & du = dx \\
+        dv = \sin(x + y) dx & v = -\cos(x + y)
+    \end{array} \right| =
+    \frac{\displaystyle I\left( y \in \left[ 0; \frac{\pi}{2} \right] \right)}{\sin y + \cos y} \left( -x \cos(x + y) \Big|_{0}^{\textstyle \frac{\pi}{2}} + \int_{0}^{\textstyle \frac{\pi}{2}} \cos(x + y) \,dx \right) =
+    \frac{\displaystyle I\left( y \in \left[ 0; \frac{\pi}{2} \right] \right)}{\sin y + \cos y} \cdot \left( -\frac{\pi}{2} \cos \left( \frac{\pi}{2} + y \right) + \sin(x + y) \Big|_{0}^{\textstyle \frac{\pi}{2}} \right) =
+    \frac{\displaystyle I\left( y \in \left[ 0; \frac{\pi}{2} \right] \right)}{\sin y + \cos y} \left( \frac{\pi}{2} \sin y + \sin \left( \frac{\pi}{2} + y \right) - \sin y \right) \\=
+    \frac{\displaystyle I\left( y \in \left[ 0; \frac{\pi}{2} \right] \right)}{\sin y + \cos y} \left( \left( \frac{\pi}{2} - 1 \right) \sin y + \cos y \right) \\\\
+    6) \Cov(X, Y) = E(XY) - E(X)E(Y) \circledeq \\
+    E(XY) = \int_{\mathbb{R}^2} xy f_{X, Y}(x, y) \,dxdy =
+    \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} xy \frac{1}{2} \sin(x + y) \cdot I\left( (x, y) \in \left[ 0; \frac{\pi}{2} \right]^2 \right) \,dxdy =
+    \frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} x \,dx \int_{0}^{\textstyle \frac{\pi}{2}} y \sin(x + y) \,dy =
+    \left| \begin{array}{ll}
+        u = y & du = dy \\
+        dv = \sin(x + y) dy & v = -\cos(x + y)
+    \end{array} \right| =
+    \frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} x \left( -y \cos(x + y) \Big|_{0}^{\textstyle \frac{\pi}{2}} + \int_{0}^{\textstyle \frac{\pi}{2}} \cos(x + y) \,dy \right) \,dx =\\
+    \frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} x \left( -\frac{\pi}{2} \cos \left( x + \frac{\pi}{2} \right) + \sin(x + y) \Big|_{0}^{\textstyle \frac{\pi}{2}} \right) \,dx =
+    \frac{1}{2} \int_{0}^{\textstyle \frac{\pi}{2}} x \left( \left( \frac{\pi}{2} - 1 \right) \sin x + \cos x \right) \,dx \\=
+    \left| \begin{array}{ll}
+        u = x & du = dx \\
+        \displaystyle dv = \left( \left( \frac{\pi}{2} - 1 \right) \sin x + \cos x \right) dx & \displaystyle v = \left( \frac{\pi}{2} - 1 \right) \cos x + \sin x
+    \end{array} \right| = \\
+    \frac{1}{2} \left( x \left( \left( \frac{\pi}{2} - 1 \right) \sin x + \cos x \right) \Big|_{0}^{\textstyle \frac{\pi}{2}} - \int_{0}^{\textstyle \frac{\pi}{2}} \left( \left( \frac{\pi}{2} - 1 \right) \cos x + \sin x \right) \,dx \right) = \\
+    \frac{1}{2} \left( \frac{\pi}{2} - \left( \left( 1 - \frac{\pi}{2} \right) \sin x + \cos x \right) \Big|_{0}^{\textstyle \frac{\pi}{2}} \right) =
+    \frac{1}{2} \left( \frac{\pi}{2} - 1 + \frac{\pi}{2} - 1 \right) =
+    \frac{1}{2} \cdot 2 =
+    1 \\
+    \circledeq 1 - \frac{\pi^2}{16} \\\\
+    7) \rho(X, Y) = \frac{\Cov(X, Y)}{\sigma_X \sigma_Y} =
+    \frac{\displaystyle 1 - \frac{\pi^2}{16}}{\displaystyle \sqrt{\left( \frac{\pi^2}{16} + \frac{\pi}{2} - 2 \right)^2}} =
+    \frac{\displaystyle 1 - \frac{\pi^2}{16}}{\displaystyle \frac{\pi^2}{16} + \frac{\pi}{2} - 2} =
+    \frac{16 - \pi^2}{\pi^2 + 8\pi - 32}
+    $
+\end{document}

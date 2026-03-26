@@ -1,0 +1,63 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\usepackage{setspace}
+
+\doublespacing
+
+\DeclareMathOperator{\M}{M}
+\DeclareMathOperator{\Uniform}{U}
+
+\begin{document}
+    \begin{center}
+        \textbf{Покупка машины}
+    \end{center}
+
+    M = 1\_000\_000, $S = 5\M$ -- стоимость машины, $T \in [3; 11]$ -- момент времени для продажи машины, $X \sim \Uniform(1; 11)$ -- срок службы машины, возможный доход -- 
+    $\displaystyle
+    G_X(x) = \begin{cases}
+        1.4\M, & x \in [1; 3) \\
+        0, & x \in [3; T) \\
+        0.8\M, & x \in [T; 11] \\
+        0, & x \notin [1; 11]
+    \end{cases} = \\
+    1.4\M \cdot I(x \in [1; 3)) + 0.8\M \cdot I(x \in [T; 11])
+    $
+
+    Случайная величина $\displaystyle \xi = \frac{S - G_X(x)}{\min(X, T)}$
+
+    Плотность вероятностей $\displaystyle X: f_X(x) = \frac{I(x \in [1; 11])}{10}$
+
+    Функция распределения $\displaystyle X: F_X(x) = \frac{x - 1}{10} \cdot I(x \in [1; 11]) + I(x > 11)$\\
+    $\displaystyle
+    \text{При } x \in [1; 3): \\
+    G_X(x) = 1.4\M \\
+    \xi_1 = \frac{5\M - 1.4\M}{x} \cdot I(x \in [1; 3)) = \frac{3.6\M}{x} \cdot I(x \in [1; 3)) \\
+    \text{При } x \in [3; T): \\
+    G_X(x) = 0 \\
+    \xi_2 = \frac{5\M - 0}{x} \cdot I(x \in [3; T)) = \frac{5\M}{x} \cdot I(x \in [3; T)) \\
+    \text{При } x \in [T; 11]: \\
+    G_X(x) = 0.8\M \\
+    \xi_3 = \frac{5\M - 0.8\M}{T} \cdot I(x \in [T; 11]) = \frac{4.2\M}{T} \cdot I(x \in [T; 11]) \\
+    $
+
+    Таким образом математическое ожидание равно:\\
+    $\displaystyle
+    E(\xi) = \sum_{i = 1}^{3} \int_{\mathbf{R}} \xi_i \cdot f_X(x) \,dx = \int_{1}^{3} \frac{3.6\M}{x} \cdot \frac{1}{10} \,dx + \int_{3}^{T} \frac{5\M}{x} \cdot \frac{1}{10} \,dx + \int_{T}^{11} \frac{4.2\M}{T} \cdot \frac{1}{10} \,dx = 
+    0.36\M \cdot \ln(x)|_{1}^{3} + 0.5\M \cdot \ln(x)|_{3}^{T} + \frac{0.42\M}{T} \cdot x|_{T}^{11} = 
+    0.36\M \cdot \ln3 + 0.5\M \cdot \ln T - 0.5\M \cdot \ln3 + \frac{0.42\M}{T}(11 - T) = -0,14\M \cdot \ln3 + 0.5\M \cdot \ln T + \frac{4.62\M - 0.42\M \cdot T}{T}
+    $
+
+    Для поиска минимального $T$ нужно найти точку минимума для $E(\xi)(T)$:\\
+    $\displaystyle
+    \frac{d}{dT} E(\xi)(T) = \frac{0.5}{T} - \frac{4.62\M}{T^2} = 0 \\
+    T_{\min} = 9.24
+    $
+
+\end{document}

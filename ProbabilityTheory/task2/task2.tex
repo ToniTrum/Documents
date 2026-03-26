@@ -1,0 +1,69 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{setspace}
+
+\onehalfspacing
+
+\begin{document}
+    \begin{center}
+        \textbf{Квадратное уравнение}
+    \end{center}
+
+    $\displaystyle
+    p \in [2; 6],\, q \in [0; 4] \\
+    x^2 + px + q = 0 \\
+    D = p^2 - 4q$
+
+    Корни уравнения будут действительными и различными только в том случае, если дискриминант больше 0:\\
+    $\displaystyle
+    P(D > 0) = P(p^2 - 4q > 0) = P(p^2 > 4q) = P\left( q < \frac{p^2}{4}\right)
+    $
+
+    \begin{tikzpicture}[scale=1.5]
+		% Сетка
+		\draw[step=1cm,gray,very thin] (-0.9,-0.9) grid (6.9,9.9);
+		
+		% Оси координат
+		\draw[thick,->] (0,0) -- (6.5,0) node[anchor=north west] {p};
+		\draw[thick,->] (0,0) -- (0,9.5) node[anchor=south east] {q};
+		
+		% Подписи делений
+		\foreach \x in {0,1,2,3,4,5,6}
+			\draw (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {$\x$};
+		\foreach \y in {0,1,2,3,4,5,6,7,8,9}
+			\draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {$\y$};
+		
+		% Графики
+		\draw[thick, blue] (0,4) -- (6.5,4);
+		\draw[thick, blue] (0,0) -- (6.5,0);
+
+        \draw[thick, red] (2,0) -- (2,9.5);
+		\draw[thick, red] (6,0) -- (6,9.5);
+
+        \draw[thick, green, domain=0:6.15, samples=100]
+            plot (\x, {\x*\x/4});
+		
+		% Облачть решения
+		\fill[orange!40, opacity=0.6]
+            (2,0)
+            -- plot[domain=2:4, samples=100] (\x, {\x*\x/4})
+            -- (4,0)
+            -- cycle;
+
+        \fill[orange!40, opacity=0.6] (4,0) rectangle (6,4);
+	\end{tikzpicture}
+
+    Решением задачи будет значение площади фигуры, выделенной оранжевым цветом, делённую на площадь прямоугольника, образованной пересечением областей определения $p$ и $q$:\\
+    $\displaystyle
+    P(D > 0) = \frac{\displaystyle \int_{2}^{4} \frac{p^2}{4} \,dp + \int_{4}^{6} 4 \,dp}{(4 - 0) \cdot (6 - 2)} = \frac{\displaystyle \left. \frac{p^3}{12} \right|_{2}^{4} + \left. 4p \right|_{4}^{6}}{4 \cdot 4} = \frac{\displaystyle \frac{14}{3} + 8}{16} = \frac{19}{24}
+    $
+\end{document}

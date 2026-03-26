@@ -1,0 +1,187 @@
+\documentclass[a4paper,14pt]{extarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{graphicx}
+\usepackage{setspace}
+
+\doublespacing
+
+\newcommand{\circledeq}{\mathbin{\tikz \node[draw,circle,inner sep=1pt] {$=$};}}
+
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Uniform}{U}
+
+\begin{document}
+    \begin{center}
+        \textbf{Минимум и максимум}
+    \end{center}
+
+    $\xi_1, \xi_2, \ldots, \xi_{12}$ независимые, $\xi_i \sim \Uniform(0; 13) ~~ i = \overline{1, 12}$, тогда: \\
+    $\displaystyle
+    \forall i = \overline{1, 12} ~~ F_{\xi}(t) = F_{\xi_i}(t) = \begin{cases}
+        0, & x < 0 \\
+        \displaystyle \frac{t}{13}, & x \in [0; 13] \\
+        1, & x > 13
+    \end{cases} \\
+    \forall i = \overline{1, 12} ~~ f_{\xi}(t) = f_{\xi_i}(t) = \frac{I(x \in [0; 13])}{13} \\\\
+    X = \min(\xi_1, \xi_2, \ldots, \xi_{12}) \Rightarrow X \leq x \Leftrightarrow \exists i \in \{1, 2, \ldots, 12\}: \xi_i \leq x \Rightarrow \\
+    F_X(x) = P(X \leq x) = P\left( \bigcup_{i = 1}^{12} \xi_i \leq x \right) =
+    1 - P\left( \bigcap_{i = 1}^{12} \xi_i > x \right) =
+    1 - \prod_{i = 1}^{12} P(\xi_i > x) =
+    1 - \prod_{i = 1}^{12} (1 - P(\xi_i \leq x)) =
+    1 - \prod_{i = 1}^{12} (1 - F_{\xi_i}(x)) = \\
+    \begin{cases}
+        \displaystyle 1 - \prod_{i = 1}^{12} (1 - 0), & x < 0 \\
+        \displaystyle 1 - \prod_{i = 1}^{12} \left( 1 - \frac{x}{13} \right), & x \in [0; 13] \\
+        \displaystyle 1 - \prod_{i = 1}^{12} (1 - 1), & x > 13
+    \end{cases} =
+    \begin{cases}
+        0, & x < 0 \\
+        \displaystyle 1 - \left( 1 - \frac{x}{13} \right)^{12}, & x \in [0; 13] \\
+        1, & x > 13
+    \end{cases} \\
+    F_X(x) = 1 - \left( 1 - \frac{x}{13} \right)^{12} I(x \in [0; 13]) + I(x > 13) \\
+    f_X(x) = \frac{d}{dx} F_X(x) = \frac{12}{13} \left( 1 - \frac{x}{13} \right)^{11} \cdot I(x \in [0; 13]) \\\\
+    Y = \max(\xi_1, \xi_2, \ldots, \xi_{12}) \Rightarrow Y \leq x \Leftrightarrow \forall i \in \{1, 2, \ldots, 12\} ~~ \xi_i \leq x \Rightarrow \\
+    F_Y(y) = P(Y \leq y) = P\left( \bigcap_{i = 1}^{12} \xi_i \leq y \right) =
+    \prod_{i = 1}^{12} P(\xi_i \leq y) =
+    \prod_{i = 1}^{12} F_{\xi_i}(y) =
+    \begin{cases}
+        0, & y < 0 \\
+        \displaystyle \left( \frac{y}{13} \right)^{12}, & y \in [0; 13] \\
+        1, & y > 13
+    \end{cases} \\
+    F_Y(y) = \left( \frac{y}{13} \right)^{12} I(y \in [0; 13]) + I(y > 13) \\
+    f_Y(y) = \frac{d}{dy} F_Y(y) = \frac{12}{13} \left( \frac{y}{13} \right)^{11} I(y \in [0; 13]) \\\\
+    a) E(X) = \int_{\mathbb{R}} x f_X(x) \,dx = \int_{-\infty}^{+\infty} x \frac{12}{13} \left( 1 - \frac{x}{13} \right)^{11} I(x \in [0; 13]) \,dx = \\
+    \frac{12}{13} \int_{0}^{13} x \left( 1 - \frac{x}{13} \right)^{11} \,dx = 
+    \left| \begin{array}{ll}
+        u = x & du = dx \\
+        \displaystyle dv = \left( 1 - \frac{x}{13} \right)^{11} dx & \displaystyle v = -\frac{13}{12} \left( 1 - \frac{x}{13} \right)^{12}
+    \end{array} \right| =
+    -x \left( 1 - \frac{x}{13} \right)^{12} \Big|_{0}^{13} + \int_{0}^{13} \left( 1 - \frac{x}{13} \right)^{12} \,dx = 
+    -\left( 1 - \frac{x}{13} \right)^{13} \Big|_{0}^{13} = 
+    1 \\
+    E(Y) = \int_{\mathbb{R}} y f_Y(y) \,dy = \int_{-\infty}^{+\infty} y \frac{12}{13} \left( \frac{y}{13} \right)^{11} I(y \in [0; 13]) \,dy = 
+    \frac{12}{13} \int_{0}^{13} y \left( \frac{y}{13} \right)^{11} \,dy = 
+    \frac{12}{13^{12}} \int_{0}^{13} y^{12} \,dy =
+    \frac{12}{13^{13}} \cdot y^{13} \Big|_{0}^{13} =
+    12 \\\\
+    b) D(X + 3Y) = D(X) + 9D(Y) + 2\Cov(X, 3Y) \circledeq \\
+    D(X) = E(X^2) - E^2(X) \circledeq\\
+    E(X^2) = \int_{\mathbb{R}} x^2 f_X(x) \,dx = \int_{-\infty}^{+\infty} x^2 \frac{12}{13} \left( 1 - \frac{x}{13} \right)^{11} I(x \in [0; 13]) \,dx = \\
+    \frac{12}{13} \int_{0}^{13} x^2 \left( 1 - \frac{x}{13} \right)^{11} \,dx = 
+    \left| \begin{array}{ll}
+        u = x^2 & du = 2x dx \\
+        \displaystyle dv = \left( 1 - \frac{x}{13} \right)^{11} dx & \displaystyle v = -\frac{13}{12} \left( 1 - \frac{x}{13} \right)^{12}
+    \end{array} \right| = \\
+    -x^2 \left( 1 - \frac{x}{13} \right)^{12} \Big|_{0}^{13} + 2 \int_{0}^{13} x \left( 1 - \frac{x}{13} \right)^{12} \,dx =
+    2 \int_{0}^{13} x \left( 1 - \frac{x}{13} \right)^{12} \,dx =
+    \left| \begin{array}{ll}
+        u = x & du = dx \\
+        \displaystyle dv = \left( 1 - \frac{x}{13} \right)^{12} dx & \displaystyle v = -\left( 1 - \frac{x}{13} \right)^{13}
+    \end{array} \right| =
+    -2x \left( 1 - \frac{x}{13} \right)^{13} \Big|_{0}^{13} +\\ 2 \int_{0}^{13} \left( 1 - \frac{x}{13} \right)^{13} \,dx =
+    -2 \cdot \frac{13}{14} \left( 1 - \frac{x}{13} \right)^{14} \Big|_{0}^{13} =
+    -\frac{13}{7} \\
+    \circledeq \frac{13}{7} - 1 = \frac{6}{7} \\
+    D(Y) = E(Y^2) - E^2(Y) \circledeq \\
+    E(Y^2) = \int_{\mathbb{R}} y^2 f_Y(y) \,dy = \int_{-\infty}^{+\infty} y^2 \frac{12}{13} \left( \frac{y}{13} \right)^{11} I(y \in [0; 13]) \,dy = \\
+    \frac{12}{13} \int_{0}^{13} y^2 \left( \frac{y}{13} \right)^{11} \,dy = \frac{12}{13^{12}} \cdot \frac{y^{14}}{14} \Big|_{0}^{13} =
+    \frac{1014}{7} \\
+    \circledeq \frac{1014}{7} - 144 = \frac{6}{7} \\
+    \Cov(X, 3Y) = 3E(XY) - 3E(X)E(Y) \circledeq \\
+    F_{X, Y}(x, y) = P(X \leq x \cap Y \leq y) =
+    P\left( \left( \bigcup_{i = 1}^{12} \xi_i \leq x \right) \cap \left( \bigcap_{i = 1}^{12} \xi_i \leq y \right) \right) =
+    P\left( \bigcup_{i = 1}^{12} \left( \xi_i \leq x \cap \left( \bigcap_{j = 1}^{12} \xi_j \leq y \right) \right) \right) =
+    \begin{cases}
+        \displaystyle P\left( \bigcup_{i = 1}^{12} \left( \xi_i \leq x \cap \left( \bigcap_{j = 1}^{12} \xi_j \leq y \right) \right) \right), & x < y \\
+        \displaystyle P\left( \bigcup_{i = 1}^{12} \left( \bigcap_{j = 1}^{12} \xi_j \leq y \right) \right), & x \geq y
+    \end{cases} \\=
+    \begin{cases}
+        \displaystyle \sum_{k = 1}^{12} (-1)^{k + 1} \sum_{0 \leq i_1 < i_2 < \ldots < i_k < 12} P\left( \bigcap_{i = 1}^{k} \left( \xi_i \leq x \cap \left( \bigcap_{j = 1}^{12} \xi_j \leq y \right) \right) \right), & x < y \\
+        \displaystyle P\left( \bigcap_{j = 1}^{12} \xi_j \leq y \right), & x \geq y
+    \end{cases} =
+    \begin{cases}
+        \displaystyle \sum_{k = 1}^{12} (-1)^{k + 1} C_{12}^{k} P\left( \bigcap_{i = 1}^{k} \left( \xi_i \leq x \cap \left( \bigcap_{j = 1}^{12} \xi_j \leq y \right) \right) \right), & x < y \\
+        \displaystyle P\left( \bigcap_{j = 1}^{12} \xi_j \leq y \right), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        \displaystyle \sum_{k = 1}^{12} (-1)^{k + 1} C_{12}^{k} P\left( \bigcap_{i = 1}^{k} \left( \xi_i \leq x \cap \left( \bigcap_{j = 1}^{12} \xi_j \leq y \right) \right) \right), & x < y \\
+        \displaystyle \prod_{j = 1}^{12} P(\xi_j \leq y), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        \displaystyle \sum_{k = 1}^{12} (-1)^{k + 1} C_{12}^{k} P\left( \left( \bigcap_{i = 1}^{k} \xi_i \leq x \right) \cap \left( \bigcap_{j = 1}^{12} \xi_j \leq y \right) \right), & x < y \\
+        \displaystyle F_Y(y), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        \displaystyle \sum_{k = 1}^{12} (-1)^{k + 1} C_{12}^{k} P\left( \left( \bigcap_{i = 1}^{k} \xi_i \leq x \right) \cap \left( \bigcap_{j = k + 1}^{12} \xi_j \leq y \right) \right), & x < y \\
+        \displaystyle F_Y(y), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        \displaystyle \sum_{k = 1}^{12} (-1)^{k + 1} C_{12}^{k} \prod_{i = 1}^{k} P(\xi_i \leq x) \prod_{j = k + 1}^{12} P(\xi_j \leq y), & x < y \\
+        \displaystyle F_Y(y), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        \displaystyle \sum_{k = 1}^{12} (-1)^{k + 1} C_{12}^{k} F_{\xi}^{k}(x) F_{\xi}^{12 - k}(y), & x < y \\
+        \displaystyle F_Y(y), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        \displaystyle -\sum_{k = 1}^{12} (-1)^{k} C_{12}^{k} F_{\xi}^{k}(x) F_{\xi}^{12 - k}(y), & x < y \\
+        \displaystyle F_Y(y), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        \displaystyle F_{\xi}^{12}(y) - \sum_{k = 0}^{12} (-1)^{k} C_{12}^{k} F_{\xi}^{k}(x) F_{\xi}^{12 - k}(y), & x < y \\
+        \displaystyle F_Y(y), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        \displaystyle F_Y(y) - \sum_{k = 0}^{12} C_{12}^{k} (-F_{\xi}(x))^{k} F_{\xi}^{12 - k}(y), & x < y \\
+        \displaystyle F_Y(y), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        \displaystyle F_Y(y) - (F_{\xi}(y) - F_{\xi}(x))^{12}, & x < y \\
+        \displaystyle F_Y(y), & x \geq y
+    \end{cases} = \\
+    \begin{cases}
+        0, & (x < 0) \lor (y < 0) \\
+        \displaystyle \frac{y}{13}^{12} - \left( \frac{y - x}{13} \right)^{12}, & 0 \leq x < y \leq 13 \\
+        \displaystyle \left( \frac{y}{13} \right)^{12}, & 0 \leq y \leq x \leq 13 \\
+        \displaystyle 1 - \left( 1 - \frac{x}{13} \right)^{12}, & 0 \leq x \leq 13 < y \\
+        \displaystyle \left( \frac{y}{13} \right)^{12}, & 0 \leq y \leq 13 < x \\
+        1, & (x > 13) \land (y > 13)
+    \end{cases} = \\
+    \begin{cases}
+        0, & (x < 0) \lor (y < 0) \\
+        \displaystyle \left( \frac{y}{13} \right)^{12}, & (0 \leq y \leq 13) \land (y \leq x) \\
+        \displaystyle \frac{y}{13}^{12} - \left( \frac{y - x}{13} \right)^{12}, & 0 \leq x < y \leq 13 \\
+        \displaystyle 1 - \left( 1 - \frac{x}{13} \right)^{12}, & 0 \leq x \leq 13 < y \\
+        1, & (x > 13) \land (y > 13)
+    \end{cases} \\
+    F_{X, Y}(x, y) = \left( \frac{y}{13} \right)^{12} \cdot I((0 \leq y \leq 13) \land (y \leq x)) + 
+    \left( \frac{y}{13}^{12} - \left( \frac{y - x}{13} \right)^{12} \right) \cdot \\ I(0 \leq x < y \leq 13) +
+    \left( 1 - \left( 1 - \frac{x}{13} \right)^{12} \right) \cdot I(0 \leq x \leq 13 < y) + \\
+    I((x > 13) \land (y > 13)) \\
+    f_{X, Y}(x, y) = \frac{\partial^2}{\partial x \partial y} F_{X, Y}(x, y) = \frac{132}{169} \left( \frac{y - x}{13} \right)^{10} \cdot I(0 \leq x < y \leq 13) \\
+    E(XY) = \int_{\mathbb{R}} xy f_{X, Y}(x, y) \,dxdy = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} xy \frac{132}{169} \left( \frac{y - x}{13} \right)^{10} \cdot \\ I(0 \leq x < y \leq 13) \,dxdy =
+    \frac{132}{169} \int_{0}^{13} y \,dy \int_{0}^{y} x \left( \frac{y - x}{13} \right)^{10} \,dx = \\
+    \left| \begin{array}{ll}
+        u = x & du = dx \\
+        \displaystyle dv = \left( \frac{y - x}{13} \right)^{10} dx & \displaystyle v = -\frac{13}{12} \left( \frac{y - x}{13} \right)^{11}
+    \end{array} \right| = \\
+    \frac{132}{169} \int_{0}^{13} y \left( -\frac{13}{11} x \left( \frac{y - x}{13} \right)^{11} \Big|_{0}^{y} + \frac{13}{11} \int_{0}^{y} \left( \frac{y - x}{13} \right)^{11} \,dx \right) \,dy = \\
+    \frac{12}{13} \int_{0}^{13} -\frac{13}{12} y \left( \frac{y - x}{13} \right)^{12} \Big|_{0}^{y} \,dy =
+    \int_{0}^{13} \frac{y^{13}}{13^{12}} \,dy = 
+    \frac{y^{14}}{14 \cdot 13^{12}} \Big|_{0}^{13} = \frac{169}{14} \\
+    \circledeq 3 \cdot \frac{169}{14} - 3 \cdot 1 \cdot 12 = \frac{3}{14} \\
+    \circledeq \frac{6}{7} + 9 \cdot \frac{6}{7} + 2 \cdot \frac{3}{14} = 9 \\\\
+    \text{Ответ}: E(X) = 1; ~ E(Y) = 12; ~ D(X + 3Y) = 9
+    $
+\end{document}
